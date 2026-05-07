@@ -24,6 +24,9 @@ async function connecting() {
     }
 }
 
+app.use('/client', clientsRoute);
+app.use('/plant', plantsRoute);
+
 connecting().then(() => {
     app.listen(port, () => console.log(`listening on port ${port}`))
 })

@@ -1,0 +1,11 @@
+.createAccount{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.navbar{
+    display: flex;
+    justify-content:space-around;
+    margin-bottom:5%
+}

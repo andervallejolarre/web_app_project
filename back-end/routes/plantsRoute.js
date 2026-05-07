@@ -3,5 +3,6 @@ const express = require('express'),
     controller = require('../controllers/plantsController.js');
 
 router.get('/', controller.findAll);
+router.post('/new', controller.newPlant);
 
-module.export = router;
+module.exports = router;
