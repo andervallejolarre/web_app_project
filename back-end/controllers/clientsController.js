@@ -17,7 +17,7 @@ class ClientsController {
         }
     }
 
-    //Add Product
+    //Create a new account and log in
     async newClient(req, res) {
         let { name, email, password, password2, plantNotif, newsNotif } = req.body;
 
@@ -35,16 +35,17 @@ class ClientsController {
             const clients = await client.findOne({ email });
             if (!clients) {
                 const hash = await argon2.hash(password);
-                await client.create({
+                const newClient = await client.create({
                     name: name,
                     email: email,
                     password: hash,
                     plant_notif: plantNotif,
                     news_notif: newsNotif
                 })
-                res.send({ ok: true, payload: `Client ${name} added successfully` })
+                const token = jwt.sign(newClient.toJSON(), jwt_secret, { expiresIn: "1h" });
+                res.send({ ok: true, payload: `Client ${name} added successfully`, token, email })
             } else {
-                res.send({ ok: true, payload: 'Invalid credentials' })
+                res.send({ ok: false, payload: 'Invalid credentials' })
             }
         } catch (e) {
             console.log(e);
@@ -52,15 +53,28 @@ class ClientsController {
         }
     }
 
+    //Log In
     async login(req, res) {
-        let { name, email, plantNotif, newsNotif } = req.body;
+        let { email, password } = req.body;
+        if ( !email || !password) {
+            return res.send({ ok: false, payload: 'All fields required' });
+        }
+        if (!validator.isEmail(email)) {
+            return res.send({ ok: false, payload: 'Email invalid' });
+        }
         try {
-            const clients = await client.findOne({ email: email });
-            if (!clients) {
-                await client.create({ name: name, email: email, plant_notif: plantNotif, news_notif: newsNotif })
-                res.send({ ok: true, payload: `Client ${name} added successfully` })
+            const clients = await client.findOne({ email });
+            console.log(clients);
+            if (clients) {
+                const match = await argon2.verify (clients.password, password);
+                if (match){
+                    const token = jwt.sign(clients.toJSON(), jwt_secret, { expiresIn: "1h" });
+                    res.send({ ok: true, payload: `Welcome back`, token, email })
+                } else {
+                    res.send({ ok: false, payload: 'Invalid credentials' })
+                }
             } else {
-                res.send({ ok: true, payload: 'This email is already being used' })
+                res.send({ ok: false, payload: 'Invalid credentials' })
             }
         } catch (e) {
             console.log(e);
@@ -68,20 +82,14 @@ class ClientsController {
         }
     }
 
-    async verTok(req, res) {
-        let { name, email, plantNotif, newsNotif } = req.body;
-        try {
-            const clients = await client.findOne({ email: email });
-            if (!clients) {
-                await client.create({ name: name, email: email, plant_notif: plantNotif, news_notif: newsNotif })
-                res.send({ ok: true, payload: `Client ${name} added successfully` })
-            } else {
-                res.send({ ok: true, payload: 'This email is already being used' })
-            }
-        } catch (e) {
-            console.log(e);
-            res.send({ ok: false, payload: e })
-        }
-    }
+    //Verify_token
+    async verifyToken (req, res) {
+        const token = req.headers.authorization;
+        jwt.verify(token, jwt_secret, (err, succ) =>{
+            err ?
+            res.json({ok: false, payload: 'Something went wrong'})
+            : res.json({ok: true, succ });
+        })
+    };
 };
 module.exports = new ClientsController();

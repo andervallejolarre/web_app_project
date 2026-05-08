@@ -1,7 +1,12 @@
+.accountSec{
+    display:flex;
+    justify-content: center;
+
 .createAccount{
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+}
 }
 
 .navbar{
