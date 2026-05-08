@@ -14,12 +14,11 @@ class PlantsController {
     }
 
     async newPlant(req, res) {
-        let { name, type, email } = req.body;
+        let { email, type } = req.body;
         try {
-            const clientId = await client.findOne({ email: email });
+            const clientId = await client.findOne({ email });
             if (clientId) {
                 await plant.create({
-                    name: name,
                     type: type,
                     owner: new ObjectId(clientId._id),
                     hidration: 0,

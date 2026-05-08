@@ -1,16 +1,28 @@
-.accountSec{
-    display:flex;
+.accountSec {
+    display: flex;
     justify-content: center;
 
-.createAccount{
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-}
+    .createAccount {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+    }
 }
 
-.navbar{
+.yourInfo {
+    align-content: center;
+    margin: 5% 20%;
+
+    div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 5% auto;
+    }
+}
+
+.navbar {
     display: flex;
-    justify-content:space-around;
-    margin-bottom:5%
+    justify-content: space-around;
+    margin-bottom: 5%
 }

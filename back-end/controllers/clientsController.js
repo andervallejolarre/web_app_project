@@ -39,11 +39,12 @@ class ClientsController {
                     name: name,
                     email: email,
                     password: hash,
+                    last_log: Date.now(),
                     plant_notif: plantNotif,
                     news_notif: newsNotif
                 })
                 const token = jwt.sign(newClient.toJSON(), jwt_secret, { expiresIn: "1h" });
-                res.send({ ok: true, payload: `Client ${name} added successfully`, token, email })
+                res.send({ ok: true, payload: `Client ${name} added successfully`, token, email, id: clients._id })
             } else {
                 res.send({ ok: false, payload: 'Invalid credentials' })
             }
@@ -64,12 +65,13 @@ class ClientsController {
         }
         try {
             const clients = await client.findOne({ email });
-            console.log(clients);
             if (clients) {
                 const match = await argon2.verify (clients.password, password);
                 if (match){
                     const token = jwt.sign(clients.toJSON(), jwt_secret, { expiresIn: "1h" });
-                    res.send({ ok: true, payload: `Welcome back`, token, email })
+                    //UPDATE LAST LOG - I STLII HAVE TO FIGURE OUT WHERE DOES THIS REQUEST FITS
+                    await client.findOneAndUpdate({ email: clients.email }, {last_log :Date.now()})
+                    res.send({ ok: true, payload: `Welcome back`, token, email, id: clients._id })
                 } else {
                     res.send({ ok: false, payload: 'Invalid credentials' })
                 }
@@ -91,5 +93,16 @@ class ClientsController {
             : res.json({ok: true, succ });
         })
     };
+
+    async clientInfo (req, res) {
+        try{
+            const id=JSON.parse(req.params.id);
+        const clientInfo = await client.findOne ({ _id: id})
+        res.send({ok: true, payload: clientInfo});
+        }catch (e){
+                console.log(e)
+            res.send({ok:false, payload: 'Something went wrong'});
+        }
+    }
 };
 module.exports = new ClientsController();
