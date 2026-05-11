@@ -53,7 +53,7 @@ function Account(props) {
                 })
                 if (secondRes.data.ok) {
                     setTimeout(() => {
-                        props.login(res.data.token, res.data.id);
+                        props.login(res.data.token);
                     }, 1500);
                 }
             }
@@ -73,7 +73,7 @@ function Account(props) {
             setMessage(res.data.payload)
             if (res.data.ok) {
                 setTimeout(() => {
-                    props.login(res.data.token, res.data.id);
+                    props.login(res.data.token);
                 }, 1500);
             }
         } catch (e) {

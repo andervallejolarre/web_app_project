@@ -1,12 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router'
+import PlantInfo from '../components/PlantInfo.jsx'
 
 function DigitalPlant(props) {
     if (props.loggedIn) {
         return (
-            <div>
-                <h1>YOU CAN SEE THE PLANT</h1>
-            </div>
+            <section>
+                <PlantInfo />
+            </section>
         )
     } else {
         return (

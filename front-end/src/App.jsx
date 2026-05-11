@@ -31,13 +31,11 @@ function App() {
 
   const login = (token, id) => {
     localStorage.setItem('token', JSON.stringify(token));
-    localStorage.setItem('id', JSON.stringify(id));
     setIsLoggedIn(true);
   };
 
   const logout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('id');
     setIsLoggedIn(false);
   };
 

@@ -4,5 +4,6 @@ const express = require('express'),
 
 router.get('/', controller.findAll);
 router.post('/new', controller.newPlant);
+router.get('/plant-info', controller.plantInfo);
 
 module.exports = router;

@@ -11,6 +11,6 @@ router.post('/login', controller.login);
 router.post('/verify_token', controller.verifyToken);
 
 //Render and calculation process
-router.get('/clientInfo/:id', controller.clientInfo);
+router.get('/client-info', controller.clientInfo);
 
 module.exports = router;

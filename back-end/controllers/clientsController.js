@@ -5,7 +5,6 @@ const validator = require('validator');
 
 const jwt_secret = process.env.JWT_SECRET;
 
-
 class ClientsController {
     async findAll(req, res) {
         try {
@@ -43,7 +42,7 @@ class ClientsController {
                     plant_notif: plantNotif,
                     news_notif: newsNotif
                 })
-                const token = jwt.sign(newClient.toJSON(), jwt_secret, { expiresIn: "1h" });
+                const token = jwt.sign({ id: newClient._id, email: newClient.email }, jwt_secret, { expiresIn: "1h" });
                 res.send({ ok: true, payload: `Client ${name} added successfully`, token, email, id: clients._id })
             } else {
                 res.send({ ok: false, payload: 'Invalid credentials' })
@@ -57,7 +56,7 @@ class ClientsController {
     //Log In
     async login(req, res) {
         let { email, password } = req.body;
-        if ( !email || !password) {
+        if (!email || !password) {
             return res.send({ ok: false, payload: 'All fields required' });
         }
         if (!validator.isEmail(email)) {
@@ -66,11 +65,11 @@ class ClientsController {
         try {
             const clients = await client.findOne({ email });
             if (clients) {
-                const match = await argon2.verify (clients.password, password);
-                if (match){
-                    const token = jwt.sign(clients.toJSON(), jwt_secret, { expiresIn: "1h" });
+                const match = await argon2.verify(clients.password, password);
+                if (match) {
+                    const token = jwt.sign({ id: clients._id, email: clients.email }, jwt_secret, { expiresIn: "1h" });
                     //UPDATE LAST LOG - I STLII HAVE TO FIGURE OUT WHERE DOES THIS REQUEST FITS
-                    await client.findOneAndUpdate({ email: clients.email }, {last_log :Date.now()})
+                    await client.findOneAndUpdate({ email: clients.email }, { last_log: Date.now() })
                     res.send({ ok: true, payload: `Welcome back`, token, email, id: clients._id })
                 } else {
                     res.send({ ok: false, payload: 'Invalid credentials' })
@@ -85,24 +84,33 @@ class ClientsController {
     }
 
     //Verify_token
-    async verifyToken (req, res) {
+    async verifyToken(req, res) {
         const token = req.headers.authorization;
-        jwt.verify(token, jwt_secret, (err, succ) =>{
+        jwt.verify(token, jwt_secret, (err, succ) => {
             err ?
-            res.json({ok: false, payload: 'Something went wrong'})
-            : res.json({ok: true, succ });
+                res.json({ ok: false, payload: 'Something went wrong' })
+                : res.json({ ok: true, succ });
         })
     };
 
-    async clientInfo (req, res) {
-        try{
-            const id=JSON.parse(req.params.id);
-        const clientInfo = await client.findOne ({ _id: id})
-        res.send({ok: true, payload: clientInfo});
-        }catch (e){
-                console.log(e)
-            res.send({ok:false, payload: 'Something went wrong'});
+    //Acces client info 
+    async clientInfo(req, res) {
+        try {
+            const token = req.headers.authorization;
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const clientInfo = await client.findOne({ email: decoded.email }).select('-password');
+
+            if (!clientInfo) {
+                return res.status(404).send({ ok: false, payload: 'User not found' });
+            }
+            res.send({ ok: true, payload: clientInfo });
+        } catch (e) {
+            console.log(e);
+            if (e.name === 'JsonWebTokenError' || e.name === 'TokenExpiredError') {
+                return res.status(401).send({ ok: false, payload: 'Invalid or expired token' });
+            }
+            res.send({ ok: false, payload: 'Something went wrong' });
         }
     }
-};
+}
 module.exports = new ClientsController();

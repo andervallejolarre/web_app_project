@@ -10,7 +10,7 @@ function ClientInfo() {
 
         const getInfo = async () => {
             try {
-                const client = await axios.get(`${URL}/client/clientInfo/${localStorage.getItem('id')}`)
+                const client = await axios.get(`${URL}/client/client-info`);
                 setInfo(client.data.payload);
             } catch (e) {
                 console.log(e);

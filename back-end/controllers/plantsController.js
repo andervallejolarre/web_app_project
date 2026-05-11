@@ -1,6 +1,9 @@
 const plant = require('../models/plantModel.js');
 const client = require('../models/clientModel.js');
+const jwt = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId
+
+const jwt_secret = process.env.JWT_SECRET;
 
 class PlantsController {
     async findAll(req, res) {
@@ -37,6 +40,25 @@ class PlantsController {
             res.send({ ok: false, payload: 'You already have a plant! Go and take care of it' })
         }
     }
+    //Acces plant info through client _id stored in token
+        async plantInfo(req, res) {
+            try {
+                const token = req.headers.authorization;
+                const decoded = jwt.verify(token, process.env.JWT_SECRET);
+                const plantData = await plant.findOne({ owner: decoded.id }).select('-_id -__v -owner');
+    
+                if (!plant) {
+                    return res.status(404).send({ ok: false, payload: 'Plant not found' });
+                }
+                res.send({ ok: true, payload: plantData });
+            } catch (e) {
+                console.log(e);
+                if (e.name === 'JsonWebTokenError' || e.name === 'TokenExpiredError') {
+                    return res.status(401).send({ ok: false, payload: 'Invalid or expired token' });
+                }
+                res.send({ ok: false, payload: 'Something went wrong' });
+            }
+        }
 };
 
 module.exports = new PlantsController();
