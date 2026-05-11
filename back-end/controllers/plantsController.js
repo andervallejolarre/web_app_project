@@ -42,40 +42,39 @@ class PlantsController {
         }
     }
     //Acces plant info through client _id stored in token
-        async plantInfo(req, res) {
-            try {
-                const token = req.headers.authorization;
-                const decoded = jwt.verify(token, process.env.JWT_SECRET);
-                const plantData = await plant.findOne({ owner: decoded.id }).select('-_id -__v -owner');
-    
-                if (!plant) {
-                    return res.status(404).send({ ok: false, payload: 'Plant not found' });
-                }
-                res.send({ ok: true, payload: plantData });
-            } catch (e) {
-                console.log(e);
-                if (e.name === 'JsonWebTokenError' || e.name === 'TokenExpiredError') {
-                    return res.status(401).send({ ok: false, payload: 'Invalid or expired token' });
-                }
-                res.send({ ok: false, payload: 'Something went wrong' });
+    async plantInfo(req, res) {
+        try {
+            const token = req.headers.authorization;
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const plantData = await plant.findOne({ owner: decoded.id }).select('-_id -__v -owner');
+
+            if (!plant) {
+                return res.status(404).send({ ok: false, payload: 'Plant not found' });
             }
+            res.send({ ok: true, payload: plantData });
+        } catch (e) {
+            console.log(e);
+            if (e.name === 'JsonWebTokenError' || e.name === 'TokenExpiredError') {
+                return res.status(401).send({ ok: false, payload: 'Invalid or expired token' });
+            }
+            res.send({ ok: false, payload: 'Something went wrong' });
         }
+    }
 
     //Weather weatherCommunication
-    async weatherCommunication(req, res){
-        const {latitude, longitude} = req.query
-        if(!latitude || !longitude){
-            return res.status(404).send({ok: false, payload: 'Incomplete Data'});
-        }
-        console.log(latitude, longitude);
-        try{
-            const weatherURL= `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}`
+    async weatherCommunication(req, res) {
+        try {
+            const { latitude, longitude } = req.query
+            if (!latitude || !longitude) {
+                return res.status(404).send({ ok: false, payload: 'Incomplete Data' });
+            }
+            const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m,precipitation&timezone=auto`
             const message = await axios.get(weatherURL);
-            res.send({ok:true, payload: message.data});
-            console.log(message);
-        }catch(e){
+            res.send({ ok: true, payload: message.data.current });
+            console.log(message.data.current);
+        } catch (e) {
             console.log(e);
-            res.send({ok:false, payload: "Weather API error"});
+            res.send({ ok: false, payload: "Weather API error" });
         }
     }
 };

@@ -12,18 +12,20 @@ function Weather() {
     if (location) {
         console.log(location);
     }
+        
 
     useEffect(() => {
+        if(!location) return;
         const getInfo = async () => {
             try {
-                const weather = await axios.get(`${URL}/plant/weather?latitude=${location.latitude}&longitude=${location.longitude}`) || {};
+                const weather = await axios.get(`${URL}/plant/weather?latitude=${location.latitude}&longitude=${location.longitude}`);
                 setWeatherInfo(weather.data.payload);
             } catch (e) {
                 console.log(e);
             }
         }
         getInfo();
-    }, [])
+    }, [location])
 
     // Render all key/value pairs from info
     return (
