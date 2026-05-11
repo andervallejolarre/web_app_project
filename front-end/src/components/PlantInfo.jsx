@@ -2,12 +2,16 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { URL } from '../config.js';
+import GeoLocation from './GeoLocation.jsx'
 
 function PlantInfo() {
 
     const [plantInfo, setPlantInfo] = useState({})
-    useEffect(() => {
+    //const [location, setLocation] = useState({})
+    const location = GeoLocation();
+    //console.log(location);
 
+    useEffect(() => {
         const getInfo = async () => {
             try {
                 const plant = await axios.get(`${URL}/plant/plant-info`);
@@ -17,7 +21,9 @@ function PlantInfo() {
             }
         }
         getInfo();
-    }, [])
+        //setLocation(GeoLocation());
+    }, [plantInfo])
+
 
     // Render all key/value pairs from info
     return (
