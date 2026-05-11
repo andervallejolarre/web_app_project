@@ -20,6 +20,7 @@ function Weather() {
             try {
                 const weather = await axios.get(`${URL}/plant/weather?latitude=${location.latitude}&longitude=${location.longitude}`);
                 setWeatherInfo(weather.data.payload);
+                console.log(weather.data.payload)
             } catch (e) {
                 console.log(e);
             }

@@ -68,15 +68,39 @@ class PlantsController {
             if (!latitude || !longitude) {
                 return res.status(404).send({ ok: false, payload: 'Incomplete Data' });
             }
-            const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m,precipitation&timezone=auto`
+            const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation&hourly=direct_radiation&timezone=auto&forecast_days=1`;
             const message = await axios.get(weatherURL);
-            res.send({ ok: true, payload: message.data.current });
-            console.log(message.data.current);
+
+            const current= message.data.current;
+            const hourly=message.data.hourly.direct_radiation;
+            
+            console.log(typeof hourly[0])
+
+            let radiation=0;
+            let count=0;
+
+            for(let i = 0; i<hourly.length;i++){
+                if(hourly[i]> 150){
+                     radiation= radiation + hourly[i];
+                    count++;
+                }
+            }
+
+            let weatherData = {
+                Temperature: Math.round(current.temperature_2m),
+                Humidity: current.relative_humidity_2m,
+                Radiation: Math.round(radiation/count),
+                Precipitation: current.precipitation
+            };
+
+            res.send({ ok: true, payload: weatherData});
+            console.log(weatherData);
         } catch (e) {
             console.log(e);
             res.send({ ok: false, payload: "Weather API error" });
         }
     }
+
 };
 
 module.exports = new PlantsController();
