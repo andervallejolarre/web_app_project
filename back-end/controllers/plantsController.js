@@ -2,6 +2,7 @@ const plant = require('../models/plantModel.js');
 const client = require('../models/clientModel.js');
 const jwt = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId
+const axios = require('axios');
 
 const jwt_secret = process.env.JWT_SECRET;
 
@@ -59,6 +60,24 @@ class PlantsController {
                 res.send({ ok: false, payload: 'Something went wrong' });
             }
         }
+
+    //Weather weatherCommunication
+    async weatherCommunication(req, res){
+        const {latitude, longitude} = req.query
+        if(!latitude || !longitude){
+            return res.status(404).send({ok: false, payload: 'Incomplete Data'});
+        }
+        console.log(latitude, longitude);
+        try{
+            const weatherURL= `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}`
+            const message = await axios.get(weatherURL);
+            res.send({ok:true, payload: message.data});
+            console.log(message);
+        }catch(e){
+            console.log(e);
+            res.send({ok:false, payload: "Weather API error"});
+        }
+    }
 };
 
 module.exports = new PlantsController();

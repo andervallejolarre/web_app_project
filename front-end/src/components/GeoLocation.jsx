@@ -10,7 +10,10 @@ const GeoLocation = () => {
             userDecisionTimeout: 5000,
         });
 
-    return coords;
+    if (isGeolocationAvailable && isGeolocationEnabled && coords) {
+        return coords;
+    }
+    return null;
 };
 
 export default GeoLocation;

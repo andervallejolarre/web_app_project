@@ -1,19 +1,21 @@
 import React from 'react'
 import { NavLink } from 'react-router'
 import PlantInfo from '../components/PlantInfo.jsx'
+import Weather from '../components/Weather.jsx'
 
 function DigitalPlant(props) {
     if (props.loggedIn) {
         return (
             <section>
                 <PlantInfo />
+                <Weather />
             </section>
         )
     } else {
         return (
             <div>
                 <h1>Log In to check on your Plant</h1>
-                <NavLink to ="/account"><button>ACCOUNT</button></NavLink>
+                <NavLink to="/account"><button>ACCOUNT</button></NavLink>
             </div>
         )
     }

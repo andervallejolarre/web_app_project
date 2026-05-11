@@ -43,7 +43,7 @@ class ClientsController {
                     news_notif: newsNotif
                 })
                 const token = jwt.sign({ id: newClient._id, email: newClient.email }, jwt_secret, { expiresIn: "1h" });
-                res.send({ ok: true, payload: `Client ${name} added successfully`, token, email, id: clients._id })
+                res.send({ ok: true, payload: `Client ${name} added successfully`, token, email, id: newClient._id })
             } else {
                 res.send({ ok: false, payload: 'Invalid credentials' })
             }
