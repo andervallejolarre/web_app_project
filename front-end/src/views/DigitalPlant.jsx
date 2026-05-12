@@ -1,21 +1,29 @@
 import React from 'react'
 import { NavLink } from 'react-router'
+import { useState, useEffect } from 'react'
 import PlantInfo from '../components/PlantInfo.jsx'
 import Weather from '../components/Weather.jsx'
 import PlantType from '../components/PlantType.jsx'
+import Balance from '../components/Balance.jsx'
 
 function DigitalPlant(props) {
 
-
-    
     if (props.loggedIn) {
+
+        const [weather,setWeather]=useState({})
+        
+        const passData =(info)=>{
+            setWeather(info);
+        }
+
         return (
             <section>
-                <PlantInfo />
                 <div>
-                <Weather />
+                <Weather passData={passData}/>
                 <PlantType />
+                <Balance weatherData={weather} />
                 </div>
+                <PlantInfo />
             </section>
         )
     } else {

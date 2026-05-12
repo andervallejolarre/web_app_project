@@ -12,6 +12,7 @@ router.post('/new', controller.newPlant);
 router.get('/plant-info', controller.plantInfo);
 router.get('/plant-type-info', controller.plantTypeInfo);
 router.get('/weather', controller.weatherCommunication);
-//router.get('/balance', controller.globalBalance);
+
+router.post('/balance', controller.globalBalance);
 
 module.exports = router;

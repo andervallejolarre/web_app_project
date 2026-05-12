@@ -4,23 +4,23 @@ import axios from 'axios'
 import { URL } from '../config.js';
 import GeoLocation from './GeoLocation.jsx'
 
-function Weather() {
+function Weather(props) {
 
     const [weatherInfo, setWeatherInfo] = useState({})
     const location = GeoLocation();
 
-    if (location) {
+    /*if (location) {
         console.log(location);
     }
-        
+     */
 
     useEffect(() => {
-        if(!location) return;
+        if (!location) return;
         const getInfo = async () => {
             try {
                 const weather = await axios.get(`${URL}/plant/weather?latitude=${location.latitude}&longitude=${location.longitude}`);
                 setWeatherInfo(weather.data.payload);
-                console.log(weather.data.payload)
+                props.passData(weather.data.payload);
             } catch (e) {
                 console.log(e);
             }
