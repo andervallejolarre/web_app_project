@@ -10,6 +10,8 @@ router.post('/new', controller.newPlant);
 
 //App routes
 router.get('/plant-info', controller.plantInfo);
+router.get('/plant-type-info', controller.plantTypeInfo);
 router.get('/weather', controller.weatherCommunication);
+//router.get('/balance', controller.globalBalance);
 
 module.exports = router;

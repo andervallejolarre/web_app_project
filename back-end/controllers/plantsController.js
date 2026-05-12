@@ -1,5 +1,6 @@
-const plant = require('../models/plantModel.js');
 const client = require('../models/clientModel.js');
+const plant = require('../models/plantModel.js');
+const plantType = require('../models/plantTypeModel.js');
 const jwt = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId
 const axios = require('axios');
@@ -61,6 +62,26 @@ class PlantsController {
         }
     }
 
+    //Acces plant type info and print it
+    async plantTypeInfo(req, res) {
+        try {
+            const token = req.headers.authorization;
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const plantData = await plant.findOne({ owner: decoded.id }).select('type');
+            const plantTypeData = await plantType.findOne({ type: plantData.type }).select('-_id -__v');
+
+            if (!plantTypeData) {
+                return res.status(404).send({ ok: false, payload: 'Plant Type not found' });
+            }
+            res.send({ ok: true, payload: plantTypeData });
+        } catch (e) {
+            if (e.name === 'JsonWebTokenError' || e.name === 'TokenExpiredError') {
+                return res.status(401).send({ ok: false, payload: 'Invalid or expired token' });
+            }
+            res.send({ ok: false, payload: 'Something went wrong' });
+        }
+    }
+
     //Weather weatherCommunication
     async weatherCommunication(req, res) {
         try {
@@ -68,39 +89,26 @@ class PlantsController {
             if (!latitude || !longitude) {
                 return res.status(404).send({ ok: false, payload: 'Incomplete Data' });
             }
-            const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation&hourly=direct_radiation&timezone=auto&forecast_days=1`;
+            //const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation&hourly=direct_radiation&timezone=auto&forecast_days=1`;
+            const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,uv_index_max&hourly=relative_humidity_2m&forecast_days=7&timezone=auto`;
             const message = await axios.get(weatherURL);
 
-            const current= message.data.current;
-            const hourly=message.data.hourly.direct_radiation;
-            
-            console.log(typeof hourly[0])
-
-            let radiation=0;
-            let count=0;
-
-            for(let i = 0; i<hourly.length;i++){
-                if(hourly[i]> 150){
-                     radiation= radiation + hourly[i];
-                    count++;
-                }
-            }
+            const daily = message.data.daily;
+            const relHum = message.data.hourly.relative_humidity_2m.reduce((a, b) => a + b, 0);
 
             let weatherData = {
-                Temperature: Math.round(current.temperature_2m),
-                Humidity: current.relative_humidity_2m,
-                Radiation: Math.round(radiation/count),
-                Precipitation: current.precipitation
+                Avg_Max_Temperature: Math.round((daily.temperature_2m_max.reduce((a, b) => a + b, 0)) / 7),
+                Avg_Min_Temperature: Math.round((daily.temperature_2m_min.reduce((a, b) => a + b, 0)) / 7),
+                Avg_Humidity: Math.round(relHum / 168),
+                Avg_UV_Index: Math.round((daily.uv_index_max.reduce((a, b) => a + b, 0)) / 7),
+                Avg_Precipitation: Math.round((daily.precipitation_sum.reduce((a, b) => a + b, 0)) / 7)
             };
-
-            res.send({ ok: true, payload: weatherData});
-            console.log(weatherData);
+            res.send({ ok: true, payload: weatherData });
         } catch (e) {
             console.log(e);
             res.send({ ok: false, payload: "Weather API error" });
         }
     }
-
 };
 
 module.exports = new PlantsController();

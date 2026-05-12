@@ -6,8 +6,9 @@ const express = require('express'),
     cors = require('cors'),
     port = process.env.PORT || 4040;
 
-const plantsRoute = require('./routes/plantsRoute.js')
+const adminsRoute = require('./routes/adminsRoute.js')
 const clientsRoute = require('./routes/clientsRoute.js')
+const plantsRoute = require('./routes/plantsRoute.js')
 
 mongoose.set('debug', true)
 
@@ -23,7 +24,7 @@ async function connecting() {
         console.log('EROR: Seems like your DB is not running')
     }
 }
-
+app.use('/admin', adminsRoute);
 app.use('/client', clientsRoute);
 app.use('/plant', plantsRoute);
 
