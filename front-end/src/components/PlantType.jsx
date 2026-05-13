@@ -24,11 +24,20 @@ function PlantType() {
     return (
         <div>
             <h2>Plant Type Info</h2>
+            <p>Your plant is a : <strong>{plantTypeInfo.type}</strong></p>
+            <p>This are the weather conditions ranges that your plant likes :</p>
             <ul>
-                {Object.entries(plantTypeInfo).map(([key, value]) => (
-                    <li key={key}><strong>{key}:</strong> {value}</li>
-                ))}
+                <li><strong>Temperatures (ºC) :</strong> {plantTypeInfo.min_temp} - {plantTypeInfo.max_temp}</li>
+                <li><strong>Humidity (%) :</strong> {plantTypeInfo.min_humidity} - {plantTypeInfo.max_humidity}</li>
+                <li><strong>UV Index :</strong> {plantTypeInfo.min_radiation} - {plantTypeInfo.max_radiation}</li>
             </ul>
+            <p>Remember : </p>
+            <ul>
+                <li>Fluctuations in this ranges will increase plants stress</li>
+                <li>Stress is not always bad, but you have to be careful</li>
+                <li>Weather precipitation will increase humidity</li>
+            </ul>
+            <p>Whith this in mind, go and take care of your plant</p>
         </div>
     );
 }

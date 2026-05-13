@@ -291,8 +291,8 @@ class PlantsController {
                 }
 
                 const message3 = {
-                    sentence1: actionSentence.length > 0 ? actionSentence.slice(0, -2) : 'No action in place',
-                    sentence2: recommendationSentence.length > 0 ? recommendationSentence.slice(0, -2) : 'No recommendations available',
+                    sentence1: actionSentence.length > 0 ? actionSentence.slice(0, -2) : '',
+                    sentence2: recommendationSentence.length > 0 ? recommendationSentence.slice(0, -2) : '',
                 }
 
                 finalMessage.message3 = message3;

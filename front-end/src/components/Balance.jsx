@@ -11,9 +11,14 @@ function Balance(props) {
         const getInfo = async () => {
             try {
                 const plantType = await axios.post(`${URL}/plant/balance`, props.weatherData);
-                setBalanceInfo(plantType.data.payload);
+                if (plantType.data && plantType.data.payload) {
+                    setBalanceInfo(plantType.data.payload);
+                } else {
+                    setBalanceInfo({});
+                }
             } catch (e) {
                 console.log(e);
+                setBalanceInfo({});
             }
         }
         getInfo();
@@ -24,12 +29,18 @@ function Balance(props) {
     // Render all key/value pairs from info
     return (
         <div>
-            <h2>Balance Info</h2>
+            <h2>Last Period Balance</h2>
+            <p>Since last time you were here {balanceInfo.message1}</p>
+            <p>Take a look on how weather has a direct impact on it:</p>
             <ul>
-                {/*Object.entries(balanceInfo).map(([key, value]) => (
-                    <li key={key}><strong>{key}:</strong> {value}</li>
-                ))*/}
+                <li>{balanceInfo.message2?.sentence1 || ""}</li>
+                <li>{balanceInfo.message2?.sentence2 || ""}</li>
+                <li>{balanceInfo.message2?.sentence3 || ""}</li>
             </ul>
+            <p>Also, your actions have a direct impact too! : </p>
+            {balanceInfo.message3?.sentence1 && <p>{balanceInfo.message3.sentence1 }</p>}
+            {balanceInfo.message3?.sentence2 && <p>{balanceInfo.message3.sentence2 }</p>}
+            {(!balanceInfo.message3?.sentence1 && !balanceInfo.message3?.sentence2) && <p>Keep things like this till you see some changes</p>}
         </div>
     );
 }

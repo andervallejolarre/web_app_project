@@ -31,12 +31,16 @@ function Weather(props) {
     // Render all key/value pairs from info
     return (
         <div>
-            <h2>WeatherInfo</h2>
+            <h2>Weather Info</h2>
+            <p>This is an average of the weather conditions for the next 7 days</p>
             <ul>
-                {Object.entries(weatherInfo).map(([key, value]) => (
-                    <li key={key}><strong>{key}:</strong> {value}</li>
-                ))}
+                <li><strong>Max Temperatures (ºC) :</strong> {weatherInfo.Avg_Max_Temperature}</li>
+                <li><strong>Min Temperatures (ºC) :</strong> {weatherInfo.Avg_Min_Temperature}</li>
+                <li><strong>Humidity (%) :</strong> {weatherInfo.Avg_Humidity}</li>
+                <li><strong>UV Index :</strong> {weatherInfo.Avg_UV_Index}</li>
+                <li><strong>Precipitation (mm) :</strong> {weatherInfo.Avg_Precipitation}</li>
             </ul>
+            <p>Whit this data, you can plan ahead what your plant will need</p>
         </div>
     );
 }
