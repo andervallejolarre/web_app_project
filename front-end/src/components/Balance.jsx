@@ -19,14 +19,16 @@ function Balance(props) {
         getInfo();
     }, [props.weatherData])
 
+    console.log(balanceInfo)
+
     // Render all key/value pairs from info
     return (
         <div>
             <h2>Balance Info</h2>
             <ul>
-                {Object.entries(balanceInfo).map(([key, value]) => (
+                {/*Object.entries(balanceInfo).map(([key, value]) => (
                     <li key={key}><strong>{key}:</strong> {value}</li>
-                ))}
+                ))*/}
             </ul>
         </div>
     );

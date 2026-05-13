@@ -119,9 +119,12 @@ class PlantsController {
             const plantData = await plant.findOne({ owner: decoded.id }).select('-_id -__v -owner');
             const plantTypeData = await plantType.findOne({ type: plantData.type }).select('-_id -__v');
 
-            if (plantTypeData || weather || plantData) {
+            if (plantTypeData && weather && plantData) {
 
                 let progress = 0;
+                let stress = 0;
+                let avgPlantTypeTemp = (plantTypeData.max_temp + plantTypeData.min_temp) / 2;
+                let avgWeatherTemp = (weather.Avg_Max_Temperature + weather.Avg_Min_Temperature) / 2;
 
                 let tempBalance = true;
                 let humidityBalance = true;
@@ -144,21 +147,26 @@ class PlantsController {
                 let humSentence = '';
                 let radSentence = '';
 
+                let actionSentence = '';
+                let recommendationSentence = '';
+
                 //Checking Temperatures
-                if ((weather.Avg_Max_Temperature <= plantTypeData.max_temp && weather.Avg_Max_Temperature >= plantTypeData.min_temp) && (weather.Avg_Min_Temperature >= plantTypeData.min_temp && weather.Avg_Min_Temperature < plantTypeData.max_temp)) {
+                if ((weather.Avg_Max_Temperature <= plantTypeData.max_temp && avgWeatherTemp >= plantTypeData.min_temp) || (weather.Avg_Min_Temperature >= plantTypeData.min_temp && avgWeatherTemp >= plantTypeData.max_temp)) {
                     progress += 10;
                     tempBalance = true;
                     highTemperatures = false;
                     lowTemperatures = false;
                     tempSentence += 'in between'
-                } else if (weather.Avg_Max_Temperature > plantTypeData.max_temp && weather.Avg_Min_Temperature > plantTypeData.min_temp) {
+                } else if (weather.Avg_Max_Temperature > plantTypeData.max_temp && weather.Avg_Min_Temperature > avgPlantTypeTemp) {
                     progress -= 5;
+                    stress -= 5;
                     tempBalance = false;
                     highTemperatures = true;
                     lowTemperatures = false;
                     tempSentence += 'above'
-                } else if (weather.Avg_Max_Temperature < plantTypeData.max_temp && weather.Avg_Min_Temperature < plantTypeData.min_temp) {
+                } else if (weather.Avg_Max_Temperature < plantTypeData.max_temp && weather.Avg_Min_Temperature < avgPlantTypeTemp) {
                     progress -= 5;
+                    stress -= 5;
                     tempBalance = false;
                     highTemperatures = false;
                     lowTemperatures = true;
@@ -174,15 +182,17 @@ class PlantsController {
                     humSentence += 'in between'
                 } else if (weather.Avg_Humidity > plantTypeData.max_humidity) {
                     progress -= 10;
+                    stress -= 5;
                     humidityBalance = false;
                     highHumidity = true;
                     lowHumidity = false;
                     humSentence += 'above'
                 } else if (weather.Avg_Humidity < plantTypeData.min_humidity) {
                     progress -= 10;
+                    stress -= 5;
                     humidityBalance = false;
                     highHumidity = false;
-                    LowHumidity = true;
+                    lowHumidity = true;
                     humSentence += 'below'
                 }
 
@@ -195,12 +205,14 @@ class PlantsController {
                     radSentence += 'in between'
                 } else if (weather.Avg_UV_Index > plantTypeData.max_radiation) {
                     progress -= 10;
+                    stress -= 5;
                     radiationBalance = false;
                     highRadiation = true;
                     lowRadiation = false;
                     radSentence += 'above'
                 } else if (weather.Avg_UV_Index < plantTypeData.min_radiation) {
                     progress -= 10;
+                    stress -= 5;
                     radiationBalance = false;
                     highRadiation = false;
                     lowRadiation = true;
@@ -208,41 +220,47 @@ class PlantsController {
                 }
 
                 //Checking User Actions
-                //Hidration ON
-                if (plantData.hidration && ((tempBalance && humidityBalance && radiationBalance) || (highTemperatures && highRadiation) || (lowHumidity && tempBalance && radiationBalance))) {
+                //Hidration ON/OFF
+                if (plantData.hidration && ((tempBalance && humidityBalance && radiationBalance) || (highTemperatures && highRadiation && !plantData.protection) || (lowHumidity && tempBalance && radiationBalance))) {
                     progress += 10;
                     overIrrigation = false;
                 } else if (plantData.hidration) {
                     progress -= 10;
+                    stress -= 5;
                     overIrrigation = true;
+                    actionSentence += 'Stop watering, '
                 }
 
-                //Nutrients ON
-                if (plantData.nutrients && ((tempBalance && humidityBalance && radiationBalance) || (highTemperatures && radiationBalance))) {
+                //Nutrients ON/OFF
+                if (plantData.nutrients && ((tempBalance && radiationBalance) || (highTemperatures && radiationBalance))) {
                     progress += 10;
                     overNutrients = false;
                 } else if (plantData.nutrients) {
                     progress -= 10;
+                    stress -= 5;
                     overNutrients = true;
+                    actionSentence += 'Stop adding nutrients, '
                 }
 
-                //Protection ON
-                if (plantData.protection && ((highTemperatures && highRadiation && highHumidity) || (lowTemperatures && lowRadiation))) {
+                //Protection ON/OFF
+                if (plantData.protection && ((highTemperatures && highRadiation) || (lowTemperatures && lowRadiation))) {
                     progress += 10;
                     overProtect = false;
                 } else if (plantData.protection) {
                     progress -= 10;
+                    stress -= 5;
                     overProtect = true;
+                    actionSentence += 'Take the protection off, '
                 }
 
                 //Let's Build the Balance Message
                 const finalMessage = {
                     message1: '',
-                    message2: `Temperatures are ${tempSentence} ideal levels.`,
-                    message3: `Humidity is ${humSentence} ideal levels.`,
-                    message4: `Radiation is ${radSentence} ideal levels.`,
+                    message2: {},
+                    message3: {},
                 }
 
+                //First message about the progress of the plant 
                 if (progress >= 15) {
                     finalMessage.message1 += `Your plant is doing great!`
                 } else if (progress > 0 && progress < 15) {
@@ -251,6 +269,52 @@ class PlantsController {
                     finalMessage.message1 += `Your plant is having some trouble progressing!`
                 }
 
+                //Second message about weather analysis based on plant type necessities
+                const message2 = {
+                    sentence1: `Temperatures are ${tempSentence} ideal levels.`,
+                    sentence2: `Humidity is ${humSentence} ideal levels.`,
+                    sentence3: `Radiation is ${radSentence} ideal levels.`,
+                };
+
+                finalMessage.message2 = message2;
+
+                //Third message with some recommendations
+
+                if (!plantData.hidration && ((tempBalance && humidityBalance && radiationBalance) || (highTemperatures && highRadiation && !plantData.protection) || (lowHumidity && tempBalance && radiationBalance))) {
+                    recommendationSentence += `Try adding some water to your plant, `
+                }
+                if (!plantData.nutrients && ((tempBalance && radiationBalance) || (highTemperatures && radiationBalance))) {
+                    recommendationSentence += `Try adding some nutrients to your plant, `
+                }
+                if (!plantData.protection && ((highTemperatures && highRadiation) || (lowTemperatures && lowRadiation))) {
+                    recommendationSentence += `Try adding some protection to your plant, `
+                }
+
+                const message3 = {
+                    sentence1: actionSentence.length > 0 ? actionSentence.slice(0, -2) : 'No action in place',
+                    sentence2: recommendationSentence.length > 0 ? recommendationSentence.slice(0, -2) : 'No recommendations available',
+                }
+
+                finalMessage.message3 = message3;
+
+                //Finally, let's update progress,level and stress to respond back the finalMessage
+
+                let calc = plantData.progress + progress;
+                let level = 0;
+                if (calc >= 0) {
+                    level = plantData.level + Math.floor(calc / 100);
+                    calc %= 100;
+                } else if (calc < 0) {
+                    if (plantData.level > 0) {
+                        level = plantData.level - 1;
+                        calc += 100;
+                    } else {
+                        level = 0;
+                        calc = 0;
+                    }
+                }
+
+                await plant.updateOne({ owner: decoded.id }, { progress: calc, level: level, stress: stress })
                 res.send({ ok: true, payload: finalMessage });
             } else {
                 return res.status(404).send({ ok: false, payload: 'Missing Data' });
@@ -260,6 +324,26 @@ class PlantsController {
                 return res.status(401).send({ ok: false, payload: 'Invalid or expired token' });
             }
             res.send({ ok: false, payload: 'Something went wrong' });
+        }
+    }
+
+    async takeAction(req, res) {
+        if (req.body) {
+            try {
+                const token = req.headers.authorization;
+                const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+                await plant.updateOne({ owner: decoded.id }, { hidration: req.body.hidration, nutrients: req.body.nutrients, protection: req.body.protection })
+                res.send({ ok: true, payload: 'Data updated' });
+
+            } catch (e) {
+                if (e.name === 'JsonWebTokenError' || e.name === 'TokenExpiredError') {
+                    return res.status(401).send({ ok: false, payload: 'Invalid or expired token' });
+                }
+                res.send({ ok: false, payload: 'Something went wrong' });
+            }
+        } else {
+            return res.status(404).send({ ok: false, payload: 'Something went wrong' });
         }
     }
 };

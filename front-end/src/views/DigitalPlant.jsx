@@ -5,26 +5,32 @@ import PlantInfo from '../components/PlantInfo.jsx'
 import Weather from '../components/Weather.jsx'
 import PlantType from '../components/PlantType.jsx'
 import Balance from '../components/Balance.jsx'
+import Action from '../components/Action.jsx'
 
 function DigitalPlant(props) {
 
     if (props.loggedIn) {
 
-        const [weather,setWeather]=useState({})
-        
-        const passData =(info)=>{
+        const [weather, setWeather] = useState({})
+
+        const passData = (info) => {
             setWeather(info);
         }
 
         return (
-            <section>
-                <div>
-                <Weather passData={passData}/>
-                <PlantType />
-                <Balance weatherData={weather} />
-                </div>
-                <PlantInfo />
-            </section>
+            <>
+                <section>
+                    <div>
+                        <Weather passData={passData} />
+                        <PlantType />
+                        <Balance weatherData={weather} />
+                    </div>
+                    <PlantInfo />
+                </section>
+                <section>
+                    <Action />
+                </section>
+            </>
         )
     } else {
         return (
