@@ -232,7 +232,7 @@ class PlantsController {
                 }
 
                 //Nutrients ON/OFF
-                if (plantData.nutrients && ((tempBalance && radiationBalance) || (highTemperatures && radiationBalance))) {
+                if (plantData.nutrients && ((tempBalance && radiationBalance) || (highTemperatures && radiationBalance) || (tempBalance && humidityBalance && highRadiation))) {
                     progress += 10;
                     overNutrients = false;
                 } else if (plantData.nutrients) {
@@ -283,7 +283,7 @@ class PlantsController {
                 if (!plantData.hidration && ((tempBalance && humidityBalance && radiationBalance) || (highTemperatures && highRadiation && !plantData.protection) || (lowHumidity && tempBalance && radiationBalance))) {
                     recommendationSentence += `Try adding some water to your plant, `
                 }
-                if (!plantData.nutrients && ((tempBalance && radiationBalance) || (highTemperatures && radiationBalance))) {
+                if (!plantData.nutrients && ((tempBalance && radiationBalance) || (highTemperatures && radiationBalance) || (tempBalance && humidityBalance && highRadiation))) {
                     recommendationSentence += `Try adding some nutrients to your plant, `
                 }
                 if (!plantData.protection && ((highTemperatures && highRadiation) || (lowTemperatures && lowRadiation))) {

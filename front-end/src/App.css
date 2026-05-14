@@ -9,6 +9,12 @@
     }
 }
 
+.plant-stroke{
+      color: #7B4FA6;        /* currentColor hereda este valor */
+  stroke-width: 2px;
+  transition: color 0.3s ease;
+}
+
 .yourInfo {
     align-content: center;
     margin: 5% 20%;

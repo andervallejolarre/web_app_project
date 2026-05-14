@@ -43,7 +43,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path='/' element={<DigitalPlant loggedIn={isLoggedIn} />} />'
+        <Route path='/' element={<DigitalPlant loggedIn={isLoggedIn} />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/account' element={<Account login={login} loggedIn={isLoggedIn} logout={logout}/>} />
