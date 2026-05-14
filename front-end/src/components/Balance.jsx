@@ -28,7 +28,7 @@ function Balance(props) {
 
     // Render all key/value pairs from info
     return (
-        <div>
+        <div>{/*}
             <h2>Last Period Balance</h2>
             <p>Since last time you were here {balanceInfo.message1}</p>
             <p>Take a look on how weather has a direct impact on it:</p>
@@ -40,7 +40,7 @@ function Balance(props) {
             <p>Also, your actions have a direct impact too! : </p>
             {balanceInfo.message3?.sentence1 && <p>{balanceInfo.message3.sentence1 }</p>}
             {balanceInfo.message3?.sentence2 && <p>{balanceInfo.message3.sentence2 }</p>}
-            {(!balanceInfo.message3?.sentence1 && !balanceInfo.message3?.sentence2) && <p>Keep things like this till you see some changes</p>}
+            {(!balanceInfo.message3?.sentence1 && !balanceInfo.message3?.sentence2) && <p>Keep things like this till you see some changes</p>}*/}
         </div>
     );
 }

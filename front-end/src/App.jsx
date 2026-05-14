@@ -31,11 +31,13 @@ function App() {
 
   const login = (token, id) => {
     localStorage.setItem('token', JSON.stringify(token));
+    axios.defaults.headers.common['Authorization'] = token;
     setIsLoggedIn(true);
   };
 
   const logout = () => {
     localStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
     setIsLoggedIn(false);
   };
 

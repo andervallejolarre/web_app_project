@@ -1,13 +1,13 @@
-import Graphic1 from '../assets/Plant_Graphic_10_clean.svg?react'
-import Graphic2 from '../assets/Plant_Graphic_9_clean.svg?react'
-import Graphic3 from '../assets/Plant_Graphic_8_clean.svg?react'
-import Graphic4 from '../assets/Plant_Graphic_7_clean.svg?react'
-import Graphic5 from '../assets/Plant_Graphic_6_clean.svg?react'
-import Graphic6 from '../assets/Plant_Graphic_5_clean.svg?react'
-import Graphic7 from '../assets/Plant_Graphic_4_clean.svg?react'
-import Graphic8 from '../assets/Plant_Graphic_3_clean.svg?react'
-import Graphic9 from '../assets/Plant_Graphic_2_clean.svg?react'
-import Graphic10 from '../assets/Plant_Graphic_1_clean.svg?react'
+import Graphic1 from '../assets/Plant_Graphic_10.svg?react'
+import Graphic2 from '../assets/Plant_Graphic_9.svg?react'
+import Graphic3 from '../assets/Plant_Graphic_8.svg?react'
+import Graphic4 from '../assets/Plant_Graphic_7.svg?react'
+import Graphic5 from '../assets/Plant_Graphic_6.svg?react'
+import Graphic6 from '../assets/Plant_Graphic_5.svg?react'
+import Graphic7 from '../assets/Plant_Graphic_4.svg?react'
+import Graphic8 from '../assets/Plant_Graphic_3.svg?react'
+import Graphic9 from '../assets/Plant_Graphic_2.svg?react'
+import Graphic10 from '../assets/Plant_Graphic_1.svg?react'
 
 function SelectedGraph(props){
 
@@ -29,7 +29,7 @@ function SelectedGraph(props){
 
             return(
                 <div className= "svg">
-                    <PlantGraph className="plant-stroke" />
+                    <PlantGraph className="plantBox" />
                 </div>
             )
 }

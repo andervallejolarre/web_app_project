@@ -30,7 +30,7 @@ function Weather(props) {
 
     // Render all key/value pairs from info
     return (
-        <div>
+        <div>{/*}
             <h2>Weather Info</h2>
             <p>This is an average of the weather conditions for the next 7 days</p>
             <ul>
@@ -40,7 +40,7 @@ function Weather(props) {
                 <li><strong>UV Index :</strong> {weatherInfo.Avg_UV_Index}</li>
                 <li><strong>Precipitation (mm) :</strong> {weatherInfo.Avg_Precipitation}</li>
             </ul>
-            <p>Whit this data, you can plan ahead what your plant will need</p>
+            <p>Whit this data, you can plan ahead what your plant will need</p>*/}
         </div>
     );
 }

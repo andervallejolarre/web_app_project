@@ -34,25 +34,28 @@ function DigitalPlant(props) {
 
         return (
             <>
-                <section>
-                    <div>
+                <section className="screen">
+                    <div className="dataBox">
                         <Weather passData={passData} />
                         <PlantType />
                         <Balance weatherData={weather} />
                     </div>
-                    <SelectedGraph level={plantInfo.level} />
+                    <SelectedGraph className="plantGraph" level={plantInfo.level} />
+                    <div className="progress">
                     <p><strong>Level : </strong>{plantInfo.level}</p>
                     <p><strong>Progress : </strong>{plantInfo.progress}</p>
-                    <div>
+                    </div>
+                    <div className="data1">
                         <p><strong>Watering : </strong>{plantInfo.hidration ? 'ON' : 'OFF'}</p>
                         <p><strong>Nutrients : </strong>{plantInfo.nutrients ? 'ON' : 'OFF'}</p>
                     </div>
-                    <div>
+                    <div></div>
+                    <div className="data2">
                         <p><strong>Protection : </strong>{plantInfo.protection ? 'ON' : 'OFF'}</p>
                         <p><strong>Stress : </strong>{plantInfo.stress}</p>
                     </div>
                 </section>
-                <section>
+                <section className="actionPart">
                     <Action />
                 </section>
             </>

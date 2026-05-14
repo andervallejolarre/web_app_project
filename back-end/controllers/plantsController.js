@@ -26,6 +26,7 @@ class PlantsController {
                 await plant.create({
                     type: type,
                     owner: new ObjectId(clientId._id),
+                    updated: Date.now(),
                     hidration: false,
                     nutrients: false,
                     protection: false,
@@ -47,7 +48,7 @@ class PlantsController {
         try {
             const token = req.headers.authorization;
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            const plantData = await plant.findOne({ owner: decoded.id }).select('-_id -__v -owner -type');
+            const plantData = await plant.findOne({ owner: decoded.id }).select('-_id -__v -owner -type -updated');
 
             if (!plant) {
                 return res.status(404).send({ ok: false, payload: 'Plant not found' });
@@ -110,7 +111,7 @@ class PlantsController {
         }
     }
 
-    //Acces plant type info and print it
+    //Acces plant type info, weather info and plant info and calculate the period balance of the plant
     async globalBalance(req, res) {
         try {
             const token = req.headers.authorization;
@@ -297,24 +298,27 @@ class PlantsController {
 
                 finalMessage.message3 = message3;
 
-                //Finally, let's update progress,level and stress to respond back the finalMessage
+                //Finally, if the minimum time to update plant data has passed, we update progress,level and stress before sending back the finalMessage
+                const minUpdateTime = Number(plantData.updated) + (24 * 60 * 60 * 1000);
 
-                let calc = plantData.progress + progress;
-                let level = 0;
-                if (calc >= 0) {
-                    level = plantData.level + Math.floor(calc / 100);
-                    calc %= 100;
-                } else if (calc < 0) {
-                    if (plantData.level > 0) {
-                        level = plantData.level - 1;
-                        calc += 100;
-                    } else {
-                        level = 0;
-                        calc = 0;
+                if (Date.now() >= minUpdateTime) {
+                    let calc = plantData.progress + progress;
+                    let level = 0;
+                    if (calc >= 0) {
+                        level = plantData.level + Math.floor(calc / 100);
+                        calc %= 100;
+                    } else if (calc < 0) {
+                        if (plantData.level > 0) {
+                            level = plantData.level - 1;
+                            calc += 100;
+                        } else {
+                            level = 0;
+                            calc = 0;
+                        }
                     }
+                    await plant.updateOne({ owner: decoded.id }, { progress: calc, level: level, stress: stress, update: Date.now() })
                 }
 
-                await plant.updateOne({ owner: decoded.id }, { progress: calc, level: level, stress: stress })
                 res.send({ ok: true, payload: finalMessage });
             } else {
                 return res.status(404).send({ ok: false, payload: 'Missing Data' });
