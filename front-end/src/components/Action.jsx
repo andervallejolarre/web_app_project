@@ -8,7 +8,7 @@ function Action() {
     const [waterChecked, setWaterChecked] = useState(false)
     const [nutrientsChecked, setNutrientsChecked] = useState(false)
     const [protectionChecked, setProtectionChecked] = useState(false)
-    
+
     useEffect(() => {
 
         const getInfo = async () => {
@@ -35,29 +35,29 @@ function Action() {
 
             })
             console.log(res.data.payload)
-        } catch(e){
+        } catch (e) {
             console.log(e);
         }
     }
 
     return (
         <>
-        <h2>ACTION</h2>
-        <form className="action" onSubmit={handleSubmit}>
-            <div>
-            <label >Watering</label>
-            <input type="checkbox" name="water" id="water" checked={waterChecked} onChange={() => setWaterChecked(!waterChecked)} />
-            </div>
-            <div>
-            <label >Nutrients</label>
-            <input type="checkbox" name="nutrients" id="nutrients" checked={nutrientsChecked} onChange={() => setNutrientsChecked(!nutrientsChecked)} />
-            </div>
-            <div>
-            <label >Protection</label>
-            <input type="checkbox" name="protection" id="protection" checked={protectionChecked} onChange={() => setProtectionChecked(!protectionChecked)} />
-            </div>
-            <button>Do it!</button>
-        </form>
+            <h2>ACTION</h2>
+            <form className="action" onSubmit={handleSubmit}>
+                <label >Watering</label>
+                <div className="switch">
+                    <input type="checkbox" name="water" id="water" checked={waterChecked} onChange={() => setWaterChecked(!waterChecked)} />
+                </div>
+                <label >Nutrients</label>
+                <div className="switch">
+                    <input type="checkbox" name="nutrients" id="nutrients" checked={nutrientsChecked} onChange={() => setNutrientsChecked(!nutrientsChecked)} />
+                </div>
+                <label >Protection</label>
+                <div className="switch">
+                    <input type="checkbox" name="protection" id="protection" checked={protectionChecked} onChange={() => setProtectionChecked(!protectionChecked)} />
+                </div>
+                <button>Do it!</button>
+            </form>
         </>
     )
 }

@@ -40,9 +40,11 @@ function Balance(props) {
                         <li>{balanceInfo.message2?.sentence3 || ""}</li>
                     </ul>
                     <p>Also, your actions have a direct impact too! : </p>
-                    {balanceInfo.message3?.sentence1 && <p>{balanceInfo.message3.sentence1}</p>}
-                    {balanceInfo.message3?.sentence2 && <p>{balanceInfo.message3.sentence2}</p>}
-                    {(!balanceInfo.message3?.sentence1 && !balanceInfo.message3?.sentence2) && <p>Keep things like this till you see some changes</p>}
+                    <ul>
+                    {balanceInfo.message3?.sentence1 && <li>{balanceInfo.message3.sentence1}</li>}
+                    {balanceInfo.message3?.sentence2 && <li>{balanceInfo.message3.sentence2}</li>}
+                    {(!balanceInfo.message3?.sentence1 && !balanceInfo.message3?.sentence2) && <li>Keep things like this till you see some changes</li>}
+                    </ul>
                 </div>
             }
         </>

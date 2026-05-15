@@ -1,7 +1,40 @@
+body {
+    background-color: #6F579A;
+    color: #bbbde2
+}
+
 .navbar {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 5%
+    justify-content: space-between;
+    padding:1% 0;
+    border-bottom: solid 2px #bbbde2;
+
+    h1{
+        font-size: xx-large;
+        margin: 0 5%;
+        color:#bbbde2;
+        font-stretch: extra-expanded;
+        align-self: center;
+    }
+
+    .navlink{
+        font-size: small;
+        font-weight: 700;
+        font-stretch: extra-expanded;
+        text-decoration: none;
+        color:#bbbde2;
+        
+    }
+
+    .centerNav{
+        width:40%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .navlink:last-child{
+        margin:0 5%;
+    }
 }
 
 .accountSec {
@@ -16,20 +49,27 @@
 }
 
 .yourInfo {
+    max-width: 1200px;
+    margin: 5%;
+    border: solid 1px;
+    border-radius: 10px;
     align-content: center;
-    margin: 5% 20%;
+
+    h1 {
+        font-size: xx-large;
+        color: #bbbde2;
+    }
 
     div {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin: 5% auto;
+        margin: 5% 20%;
     }
 }
 
 .screen {
     max-width: 1200px;
-    ;
     display: grid;
     grid-template-columns: 30% 40% 30%;
     margin: 5%;
@@ -38,12 +78,12 @@
 
     .dataBox {
         height: 390px;
-        font-size: small;
-        text-align: left;
         margin: 5%;
         margin-right: 0;
-        border: solid 1px;
         border-radius: 10px;
+        background-color: rgb(187 189 226 / 20%);
+        font-size: small;
+        text-align: left;
         position: relative;
 
         .contentbar {
@@ -53,7 +93,7 @@
             top: 181px;
             left: -183px;
             transform: rotate(270deg);
-            border-bottom: solid 1px black;
+            border-bottom: solid 1px;
 
             p {
                 margin: 0 auto;
@@ -66,6 +106,7 @@
 
             h2 {
                 font-size: medium;
+                color: #bbbde2;
             }
 
             p {
@@ -88,7 +129,7 @@
     .svg {
         .plantBox {
             #Vector {
-                stroke: #8569b9;
+                stroke: #bbbde2;
                 stroke-width: 2px;
                 /*transition: color 0.3s ease;*/
             }
@@ -96,31 +137,43 @@
     }
 
     .progress {
-        text-align: right;
-        margin: 10%;
+
+        margin: 10% 3em 10% 0;
         margin-left: 0;
         position: relative;
+
+        .dataUp {
+            font-size: medium;
+            margin: 0% 0 10% 30%;
+            background-color: rgb(187 189 226 / 20%);
+            border-radius: 10px;
+
+            p:first-child {
+                border-bottom: solid 1px #bbbde2;
+                margin: 0 10%
+            }
+        }
 
         & progress {
             width: 120%;
             position: absolute;
             transform: rotate(270deg);
             top: 220px;
-            left: 90px;
+            left: 62px;
             border-radius: 0px;
             /*box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);*/
         }
 
         progress::-webkit-progress-bar {
-            background-color: #bbbde2;
+            background-color: rgb(187 189 226 / 40%);
             border-radius: 0px;
-            height: 7px;
+            height: 4px;
         }
 
         progress::-webkit-progress-value {
-            background-color: #8569b9;
+            background-color: rgb(187 189 226 / 50%);
             border-radius: 0px;
-            box-shadow: 0px 0px 10px 0px #af90e9;
+            box-shadow: 0px 0px 10px 1px rgb(187 189 226);
         }
 
         progress::-moz-progress-bar {
@@ -129,25 +182,109 @@
     }
 
     .data1 {
-        margin: 10%;
-        border: solid 1px;
+        font-size: medium;
+        margin: 10% 0% 10% 3em;
+        background-color: rgb(187 189 226 / 20%);
         border-radius: 10px;
+
+        p:first-child {
+            border-bottom: solid 1px #bbbde2;
+            margin: 0 10%
+        }
     }
 
     .data2 {
-        margin: 10%;
-        border: solid 1px;
+
+        font-size: medium;
+        margin: 10% 3em 10% 0%;
+        background-color: rgb(187 189 226 / 20%);
         border-radius: 10px;
+
+        p:first-child {
+            border-bottom: solid 1px #bbbde2;
+            margin: 0 10%
+        }
     }
-
-
-
 }
 
 .actionPart {
+    margin: 0 5%;
+    border-top: solid 1px #bbbde2;
+
+    h2 {
+        display: inline-block;
+        background-color: #6F579A;
+        font-stretch: expanded;
+        padding: 0 5%;
+        color: #bbbde2;
+        position: relative;
+        top: -15px;
+
+    }
+
     .action {
-        margin: 5%;
+        margin: 2% 5%;
         display: flex;
         justify-content: space-around;
+        align-items: center;
+
+        .switch {
+            position: relative;
+        }
+
+        .switch input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .switch input[type="checkbox"]:before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -30px;
+            height: 32px;
+            width: 64px;
+            background: #6F579A;
+            border: solid 1px #bbbde2;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow:1px 1px 2px 1px rgb(84, 61, 107);
+        }
+
+        .switch input[type="checkbox"]:after {
+            content: '';
+            position: absolute;
+            height: 24px;
+            width: 24px;
+            background: #6F579A;
+            border: solid 1px #bbbde2;
+            border-radius: 8px;
+            transform: translate(-30px, -15px);
+            transition: linear 0.2s;
+        }
+
+        .switch input[type="checkbox"]:checked::after {
+            transform: translate(0px, -15px);
+            background: #bbbde2;
+        }
+
+        .switch input[type="checkbox"]:checked::before {
+            box-shadow: 0px 0px 10px 1px rgb(187 189 226);
+            transition: linear 0.2s;
+        }
+
+        button{
+            height: 32px;
+            width: 64px;
+            border-radius: 8px;
+            border:none;
+            background-color: #bbbde2;
+            font-size: medium;
+            font-weight: 600;
+            color: #6F579A;
+            box-shadow:3px 1px 5px 1px rgb(84, 61, 107);
+            
+
+        }
     }
 }

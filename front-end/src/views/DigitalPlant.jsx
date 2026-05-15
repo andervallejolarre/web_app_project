@@ -42,15 +42,17 @@ function DigitalPlant(props) {
             <>
                 <section className="screen">
                     <div className="dataBox">
-                        <Contentbar showScreen={showScreen}/>
-                        <Weather passData={passData} screen={screenInfo}/>
-                        <PlantType screen={screenInfo}/>
-                        <Balance weatherData={weather} screen={screenInfo}/>
+                        <Contentbar showScreen={showScreen} />
+                        <Weather passData={passData} screen={screenInfo} />
+                        <PlantType screen={screenInfo} />
+                        <Balance weatherData={weather} screen={screenInfo} />
                     </div>
                     <SelectedGraph className="plantGraph" level={plantInfo.level} />
                     <div className="progress">
-                        <p><strong>Level : </strong>{plantInfo.level}</p>
-                        {/*<p><strong>Progress : </strong>{plantInfo.progress}</p>*/}
+                        <div className="dataUp">
+                            <p><strong>Level : </strong>{plantInfo.level}</p>
+                            <p><strong>Progress : </strong>{plantInfo.progress}</p>
+                        </div>
                         <progress value={plantInfo.progress} max={100} />
                     </div>
                     <div className="data1">
