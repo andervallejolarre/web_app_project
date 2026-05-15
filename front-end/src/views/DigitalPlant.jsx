@@ -6,6 +6,7 @@ import PlantType from '../components/PlantType.jsx'
 import Balance from '../components/Balance.jsx'
 import Action from '../components/Action.jsx'
 import SelectedGraph from '../components/SelectedGraph.jsx'
+import Contentbar from '../components/Contentbar.jsx'
 import { URL } from '../config.js';
 import axios from 'axios'
 
@@ -15,9 +16,14 @@ function DigitalPlant(props) {
 
         const [weather, setWeather] = useState({})
         const [plantInfo, setPlantInfo] = useState({})
+        const [screenInfo, setScreenInfo] = useState(0);
 
         const passData = (info) => {
             setWeather(info);
+        }
+
+        const showScreen = (val) => {
+            setScreenInfo(val);
         }
 
         useEffect(() => {
@@ -36,14 +42,16 @@ function DigitalPlant(props) {
             <>
                 <section className="screen">
                     <div className="dataBox">
-                        <Weather passData={passData} />
-                        <PlantType />
-                        <Balance weatherData={weather} />
+                        <Contentbar showScreen={showScreen}/>
+                        <Weather passData={passData} screen={screenInfo}/>
+                        <PlantType screen={screenInfo}/>
+                        <Balance weatherData={weather} screen={screenInfo}/>
                     </div>
                     <SelectedGraph className="plantGraph" level={plantInfo.level} />
                     <div className="progress">
-                    <p><strong>Level : </strong>{plantInfo.level}</p>
-                    <p><strong>Progress : </strong>{plantInfo.progress}</p>
+                        <p><strong>Level : </strong>{plantInfo.level}</p>
+                        {/*<p><strong>Progress : </strong>{plantInfo.progress}</p>*/}
+                        <progress value={plantInfo.progress} max={100} />
                     </div>
                     <div className="data1">
                         <p><strong>Watering : </strong>{plantInfo.hidration ? 'ON' : 'OFF'}</p>

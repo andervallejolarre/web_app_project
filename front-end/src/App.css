@@ -27,52 +27,127 @@
     }
 }
 
-.screen{
+.screen {
+    max-width: 1200px;
+    ;
     display: grid;
     grid-template-columns: 30% 40% 30%;
     margin: 5%;
+    border: solid 1px;
+    border-radius: 10px;
 
     .dataBox {
+        height: 390px;
         font-size: small;
         text-align: left;
-        margin: 2%;
+        margin: 5%;
+        margin-right: 0;
+        border: solid 1px;
+        border-radius: 10px;
+        position: relative;
 
-        h2{
-           font-size:medium; 
+        .contentbar {
+            width: 390px;
+            display: flex;
+            position: absolute;
+            top: 181px;
+            left: -183px;
+            transform: rotate(270deg);
+            border-bottom: solid 1px black;
+
+            p {
+                margin: 0 auto;
+            }
         }
 
-        p{
-         line-height: 1.5;   
-        }
+        .screenInfo {
+            margin-top: 1em;
+            margin-left: 2.5em;
 
-        ul{
-         list-style: none; 
-         margin: 0;
-         padding-left:5%  
+            h2 {
+                font-size: medium;
+            }
+
+            p {
+                margin-top: 1em;
+                line-height: 1;
+            }
+
+            ul {
+                list-style: none;
+                padding-left: 5%;
+
+                & li {
+                    line-height: 1;
+                    margin-bottom: 1em;
+                }
+            }
         }
     }
 
     .svg {
-        
-        #Vector {
-            stroke: green;
-            stroke-width: 2px;
-            /*transition: color 0.3s ease;*/
+        .plantBox {
+            #Vector {
+                stroke: #8569b9;
+                stroke-width: 2px;
+                /*transition: color 0.3s ease;*/
+            }
         }
-    
     }
 
-    /*.progress {}*/
+    .progress {
+        text-align: right;
+        margin: 10%;
+        margin-left: 0;
+        position: relative;
 
-    /*.data1 {}*/
+        & progress {
+            width: 120%;
+            position: absolute;
+            transform: rotate(270deg);
+            top: 220px;
+            left: 90px;
+            border-radius: 0px;
+            /*box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);*/
+        }
 
-    /*.data2 {}*/
+        progress::-webkit-progress-bar {
+            background-color: #bbbde2;
+            border-radius: 0px;
+            height: 7px;
+        }
+
+        progress::-webkit-progress-value {
+            background-color: #8569b9;
+            border-radius: 0px;
+            box-shadow: 0px 0px 10px 0px #af90e9;
+        }
+
+        progress::-moz-progress-bar {
+            /* style rules */
+        }
+    }
+
+    .data1 {
+        margin: 10%;
+        border: solid 1px;
+        border-radius: 10px;
+    }
+
+    .data2 {
+        margin: 10%;
+        border: solid 1px;
+        border-radius: 10px;
+    }
+
+
+
 }
 
-.actionPart{
-    .action{
-        margin:5%;
+.actionPart {
+    .action {
+        margin: 5%;
         display: flex;
-        justify-content:space-around;
+        justify-content: space-around;
     }
 }

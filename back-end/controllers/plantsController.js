@@ -17,7 +17,7 @@ class PlantsController {
             res.send({ e })
         }
     }
-
+    //Create a new plant
     async newPlant(req, res) {
         let { email, type } = req.body;
         try {
@@ -62,7 +62,6 @@ class PlantsController {
             res.send({ ok: false, payload: 'Something went wrong' });
         }
     }
-
     //Acces plant type info and print it
     async plantTypeInfo(req, res) {
         try {
@@ -82,7 +81,6 @@ class PlantsController {
             res.send({ ok: false, payload: 'Something went wrong' });
         }
     }
-
     //Weather Communication
     async weatherCommunication(req, res) {
         try {
@@ -110,7 +108,6 @@ class PlantsController {
             res.send({ ok: false, payload: "Weather API error" });
         }
     }
-
     //Acces plant type info, weather info and plant info and calculate the period balance of the plant
     async globalBalance(req, res) {
         try {
@@ -316,7 +313,7 @@ class PlantsController {
                             calc = 0;
                         }
                     }
-                    await plant.updateOne({ owner: decoded.id }, { progress: calc, level: level, stress: stress, update: Date.now() })
+                    await plant.updateOne({ owner: decoded.id }, { progress: calc, level: level, stress: stress, updated: Date.now() })
                 }
 
                 res.send({ ok: true, payload: finalMessage });
@@ -330,7 +327,7 @@ class PlantsController {
             res.send({ ok: false, payload: 'Something went wrong' });
         }
     }
-
+    //update variables Hidration, Nutrients or Protection from the plant
     async takeAction(req, res) {
         if (req.body) {
             try {
