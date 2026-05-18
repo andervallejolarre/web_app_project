@@ -66,15 +66,17 @@ function DigitalPlant(props) {
                     </div>
                 </section>
                 <section className="actionPart">
-                    <Action />
+                    <Action state={plantInfo} set={setPlantInfo}/>
                 </section>
             </>
         )
     } else {
         return (
-            <div>
-                <h1>Log In to check on your Plant</h1>
-                <NavLink to="/account"><button>ACCOUNT</button></NavLink>
+            <div className="accountSec">
+                <section>
+                <h2>Log In to check on your Plant</h2>
+                <NavLink to="/account"><button>Account</button></NavLink>
+                </section>
             </div>
         )
     }
