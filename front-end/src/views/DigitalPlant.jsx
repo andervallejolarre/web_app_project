@@ -42,7 +42,7 @@ function DigitalPlant(props) {
             <>
                 <section className="screen">
                     <div className="dataBox">
-                        <Contentbar showScreen={showScreen} />
+                        <Contentbar showScreen={showScreen} screenInfo={screenInfo}/>
                         <Weather passData={passData} screen={screenInfo} />
                         <PlantType screen={screenInfo} />
                         <Balance weatherData={weather} screen={screenInfo} />
@@ -72,7 +72,7 @@ function DigitalPlant(props) {
         )
     } else {
         return (
-            <div className="accountSec">
+            <div className="home">
                 <section>
                 <h2>Log In to check on your Plant</h2>
                 <NavLink to="/account"><button>Account</button></NavLink>

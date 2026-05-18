@@ -17,8 +17,6 @@ function Action(props) {
         }
     }
 
-    console.log(props.state.hidration)
-
     return (
         <>
             <h2>ACTION</h2>

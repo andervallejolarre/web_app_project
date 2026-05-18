@@ -9,6 +9,12 @@ body {
         font-stretch: extra-expanded;
     }
 
+    input[type="checkbox"] {
+        width: 15px;
+        accent-color: rgb(84, 61, 107);
+        cursor: pointer;
+    }
+
     button {
         height: 32px;
         min-width: 64px;
@@ -39,11 +45,24 @@ body {
         font-weight: 700;
         font-stretch: extra-expanded;
         text-decoration: none;
+        padding: 0 1em;
         color: #bbbde2;
 
         .accountIcon {
             #Vector {
                 stroke: #bbbde2;
+            }
+        }
+    }
+
+    .navlink.active{
+        background-color: #bbbde2;
+        border-radius: 5px;
+        color:#6F579A;
+
+        .accountIcon {
+            #Vector {
+                stroke:#6F579A;
             }
         }
     }
@@ -68,13 +87,25 @@ body {
     align-content: center;
     display: grid;
     grid-template-columns: 50% 50%;
+    font-size: small;
 
-    h2, label{
-            font-size: medium;
-        }
+    h2 {
+        font-size: medium;
+    }
 
-    button{
+    button {
         margin-top: 5%;
+    }
+
+    .textInput {
+        background-color: rgb(187 189 226 / 20%);
+        color: white;
+    }
+
+    .checkInput {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1em;
     }
 
     .createAccount {
@@ -82,9 +113,10 @@ body {
         display: flex;
         flex-direction: column;
         padding: 0 10%;
-        border-right: solid 2px 
+        border-right: solid 2px;
     }
-    .login{
+
+    .login {
         justify-content: center;
         display: flex;
         flex-direction: column;
@@ -135,9 +167,19 @@ body {
         position: relative;
         top: -15px;
     }
-    button{
+
+    button {
         margin: 2% 25%;
     }
+}
+
+.home {
+    max-width: 1200px;
+    height: 540px;
+    margin: 5%;
+    border: solid 1px;
+    border-radius: 10px;
+    align-content: center;
 }
 
 .screen {
@@ -168,13 +210,17 @@ body {
             top: 181px;
             left: -183px;
             transform: rotate(270deg);
-            border-bottom: solid 1px;
+            /*border-bottom: solid 1px;*/
 
             p {
                 font-size: xx-small;
                 font-stretch: extra-expanded;
                 font-weight: 600;
                 margin: 0 auto;
+            }
+
+            .selected{
+                border-bottom: solid 1px;
             }
         }
 

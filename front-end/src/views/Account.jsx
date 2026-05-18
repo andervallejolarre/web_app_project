@@ -88,23 +88,29 @@ function Account(props) {
                     <form className='createAccount' onChange={handleChangeForm1} onSubmit={handleSubmit}>
                         <h2>CREATE YOUR ACCOUNT</h2>
                         <label>Name</label>
-                        <input type='text' name='name' />
+                        <input className="textInput" type='text' name='name' />
                         <label>Email</label>
-                        <input type='email' name='email' />
+                        <input className="textInput" type='email' name='email' />
                         <label>password</label>
-                        <input type='text' name='password' />
+                        <input className="textInput" type='text' name='password' />
                         <label>confirm password</label>
-                        <input type='text' name='password2' />
-                        <input type="checkbox" name='plantNotif' />
-                        <input type="checkbox" name='newsNotif' />
+                        <input className="textInput" type='text' name='password2' />
+                        <div className="checkInput">
+                            <label>Notifications about your plant</label>
+                            <input type="checkbox" name='plantNotif' />
+                        </div>
+                        <div className="checkInput">
+                            <label>Notifications about W... P... S </label>
+                            <input type="checkbox" name='newsNotif' />
+                        </div>
                         <button>Submit</button>
                     </form>
                     <form className='login' onChange={handleChangeForm2} onSubmit={handleSubmit2}>
                         <h2>LOG IN</h2>
                         <label>Email</label>
-                        <input type='email' name='email' />
+                        <input className="textInput" type='email' name='email' />
                         <label>password</label>
-                        <input type='text' name='password' />
+                        <input className="textInput" type='text' name='password' />
                         <button>Enter</button>
                     </form>
                 </div>
@@ -117,8 +123,8 @@ function Account(props) {
             <section>
                 <ClientInfo />
                 <section className="logout">
-                <h2>HERE YOU CAN</h2>
-                <button onClick={props.logout}>Log Out</button>
+                    <h2>HERE YOU CAN</h2>
+                    <button onClick={props.logout}>Log Out</button>
                 </section>
             </section>
         )
