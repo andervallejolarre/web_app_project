@@ -12,16 +12,16 @@ import Graphic10 from '../assets/Plant_Graphic_1.svg?react'
 function SelectedGraph(props){
 
             const graphic = {
-                1: Graphic1,
-                2: Graphic2,
-                3: Graphic3,
-                4: Graphic4,
-                5: Graphic5,
-                6: Graphic6,
-                7: Graphic7,
-                8: Graphic8,
-                9: Graphic9,
-                10: Graphic10
+                0: Graphic1,
+                1: Graphic2,
+                2: Graphic3,
+                3: Graphic4,
+                4: Graphic5,
+                5: Graphic6,
+                6: Graphic7,
+                7: Graphic8,
+                8: Graphic9,
+                9: Graphic10
             }
             const PlantGraph =graphic[props.level];
 
