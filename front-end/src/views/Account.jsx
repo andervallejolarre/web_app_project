@@ -99,8 +99,8 @@ function Account(props) {
                         <input type="checkbox" name='newsNotif' />
                         <button>Submit</button>
                     </form>
-                    <form className='createAccount' onChange={handleChangeForm2} onSubmit={handleSubmit2}>
-                        <h2>Log In</h2>
+                    <form className='login' onChange={handleChangeForm2} onSubmit={handleSubmit2}>
+                        <h2>LOG IN</h2>
                         <label>Email</label>
                         <input type='email' name='email' />
                         <label>password</label>
@@ -116,8 +116,10 @@ function Account(props) {
         return (
             <section>
                 <ClientInfo />
-                <h3>Here you can log out</h3>
+                <section className="logout">
+                <h2>HERE YOU CAN</h2>
                 <button onClick={props.logout}>Log Out</button>
+                </section>
             </section>
         )
     }

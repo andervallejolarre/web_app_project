@@ -53,7 +53,7 @@ function DigitalPlant(props) {
                             <p><strong>Level : </strong>{plantInfo.level}</p>
                             <p><strong>Progress : </strong>{plantInfo.progress}</p>
                         </div>
-                        <progress value={plantInfo.progress} max={100} />
+                        <progress className="progressBar"value={plantInfo.progress} max={100} />
                     </div>
                     <div className="data1">
                         <p><strong>Watering : </strong>{plantInfo.hidration ? 'ON' : 'OFF'}</p>

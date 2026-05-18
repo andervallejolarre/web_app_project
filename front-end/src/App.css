@@ -1,75 +1,148 @@
 body {
     background-color: #6F579A;
-    color: #bbbde2
+    color: #bbbde2;
+    font-stretch: extra-expanded;
+
+    h1,
+    h2 {
+        color: #bbbde2;
+        font-stretch: extra-expanded;
+    }
+
+    button {
+        height: 32px;
+        min-width: 64px;
+        border-radius: 8px;
+        border: none;
+        background-color: #bbbde2;
+        font-size: medium;
+        font-weight: 600;
+        color: #6F579A;
+        box-shadow: 3px 1px 5px 1px rgb(84, 61, 107);
+    }
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding:1% 0;
+    padding: 1% 0;
     border-bottom: solid 2px #bbbde2;
 
-    h1{
+    h1 {
         font-size: xx-large;
         margin: 0 5%;
-        color:#bbbde2;
-        font-stretch: extra-expanded;
         align-self: center;
     }
 
-    .navlink{
+    .navlink {
         font-size: small;
         font-weight: 700;
         font-stretch: extra-expanded;
         text-decoration: none;
-        color:#bbbde2;
-        
+        color: #bbbde2;
+
+        .accountIcon {
+            #Vector {
+                stroke: #bbbde2;
+            }
+        }
     }
 
-    .centerNav{
-        width:40%;
+    .centerNav {
+        width: 40%;
         display: flex;
         justify-content: space-around;
     }
 
-    .navlink:last-child{
-        margin:0 5%;
+    .navlink:last-child {
+        margin: 0 5%;
     }
 }
 
 .accountSec {
-    display: flex;
-    justify-content: center;
+    max-width: 1200px;
+    height: 540px;
+    margin: 5%;
+    border: solid 1px;
+    border-radius: 10px;
+    align-content: center;
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    h2, label{
+            font-size: medium;
+        }
+
+    button{
+        margin-top: 5%;
+    }
 
     .createAccount {
+        justify-content: center;
         display: flex;
         flex-direction: column;
-        margin: 0 auto;
+        padding: 0 10%;
+        border-right: solid 2px 
+    }
+    .login{
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        padding: 0 10%;
     }
 }
 
 .yourInfo {
     max-width: 1200px;
+    height: 540px;
     margin: 5%;
     border: solid 1px;
     border-radius: 10px;
     align-content: center;
 
-    h1 {
-        font-size: xx-large;
-        color: #bbbde2;
+    h2 {
+        margin-left: 10%;
+        justify-self: left;
+        font-size: small;
+        font-weight: 700;
     }
 
     div {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin: 5% 20%;
+        margin: 0 10%;
+        padding: 1em 0;
+        font-size: small;
+        font-stretch: extra-expanded;
+        border-top: solid 1px
+    }
+
+    section:first-child {
+        margin-bottom: 2em;
+    }
+}
+
+.logout {
+    margin: 0 5%;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+        background-color: #6F579A;
+        font-stretch: expanded;
+        padding: 0 5%;
+        position: relative;
+        top: -15px;
+    }
+    button{
+        margin: 2% 25%;
     }
 }
 
 .screen {
     max-width: 1200px;
+    height: 540px;
     display: grid;
     grid-template-columns: 30% 40% 30%;
     margin: 5%;
@@ -82,8 +155,10 @@ body {
         margin-right: 0;
         border-radius: 10px;
         background-color: rgb(187 189 226 / 20%);
-        font-size: small;
+        font-size: x-small;
         text-align: left;
+        font-stretch: expanded;
+        padding: 0 1em;
         position: relative;
 
         .contentbar {
@@ -96,17 +171,19 @@ body {
             border-bottom: solid 1px;
 
             p {
+                font-size: xx-small;
+                font-stretch: extra-expanded;
+                font-weight: 600;
                 margin: 0 auto;
             }
         }
 
         .screenInfo {
-            margin-top: 1em;
-            margin-left: 2.5em;
+            margin-top: 4em;
+            margin-left: 4em;
 
             h2 {
                 font-size: medium;
-                color: #bbbde2;
             }
 
             p {
@@ -143,7 +220,8 @@ body {
         position: relative;
 
         .dataUp {
-            font-size: medium;
+            font-size: small;
+            font-stretch: expanded;
             margin: 0% 0 10% 30%;
             background-color: rgb(187 189 226 / 20%);
             border-radius: 10px;
@@ -154,35 +232,35 @@ body {
             }
         }
 
-        & progress {
+        & .progressBar {
             width: 120%;
             position: absolute;
             transform: rotate(270deg);
             top: 220px;
             left: 62px;
             border-radius: 0px;
-            /*box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);*/
         }
 
-        progress::-webkit-progress-bar {
+        .progressBar::-webkit-progress-bar {
             background-color: rgb(187 189 226 / 40%);
             border-radius: 0px;
             height: 4px;
         }
 
-        progress::-webkit-progress-value {
+        .progressBar::-webkit-progress-value {
             background-color: rgb(187 189 226 / 50%);
             border-radius: 0px;
             box-shadow: 0px 0px 10px 1px rgb(187 189 226);
         }
 
-        progress::-moz-progress-bar {
+        .progressBar::-moz-progress-bar {
             /* style rules */
         }
     }
 
     .data1 {
-        font-size: medium;
+        font-size: small;
+        font-stretch: expanded;
         margin: 10% 0% 10% 3em;
         background-color: rgb(187 189 226 / 20%);
         border-radius: 10px;
@@ -195,7 +273,8 @@ body {
 
     .data2 {
 
-        font-size: medium;
+        font-size: small;
+        font-stretch: expanded;
         margin: 10% 3em 10% 0%;
         background-color: rgb(187 189 226 / 20%);
         border-radius: 10px;
@@ -216,10 +295,8 @@ body {
         background-color: #6F579A;
         font-stretch: expanded;
         padding: 0 5%;
-        color: #bbbde2;
         position: relative;
         top: -15px;
-
     }
 
     .action {
@@ -227,6 +304,8 @@ body {
         display: flex;
         justify-content: space-around;
         align-items: center;
+        font-size: medium;
+
 
         .switch {
             position: relative;
@@ -248,7 +327,7 @@ body {
             border: solid 1px #bbbde2;
             border-radius: 10px;
             cursor: pointer;
-            box-shadow:1px 1px 2px 1px rgb(84, 61, 107);
+            box-shadow: 1px 1px 2px 1px rgb(84, 61, 107);
         }
 
         .switch input[type="checkbox"]:after {
@@ -271,20 +350,6 @@ body {
         .switch input[type="checkbox"]:checked::before {
             box-shadow: 0px 0px 10px 1px rgb(187 189 226);
             transition: linear 0.2s;
-        }
-
-        button{
-            height: 32px;
-            width: 64px;
-            border-radius: 8px;
-            border:none;
-            background-color: #bbbde2;
-            font-size: medium;
-            font-weight: 600;
-            color: #6F579A;
-            box-shadow:3px 1px 5px 1px rgb(84, 61, 107);
-            
-
         }
     }
 }

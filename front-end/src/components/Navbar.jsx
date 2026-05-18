@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router'
+import Icon from '../assets/Vector.svg?react'
 
 function Navbar(){
     return(
@@ -10,7 +11,7 @@ function Navbar(){
             <NavLink to= '/about' className="navlink">ABOUT</NavLink>
             <NavLink to= '/contact' className="navlink">CONTACT</NavLink>
             </div>
-            <NavLink to= '/account' className="navlink">ACCOUNT</NavLink>
+            <NavLink to= '/account' className="navlink"><Icon className="accountIcon" /></NavLink>
             </div>
     )
 }

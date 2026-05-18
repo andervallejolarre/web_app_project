@@ -5,9 +5,9 @@ function Contentbar (props) {
 
     return(
         <div className='contentbar'>
-            <p onClick={() => props.showScreen(0)}>Period Balance</p>
-            <p onClick={() => props.showScreen(1)}>Plant Info</p>
-            <p onClick={() => props.showScreen(2)}>Weather</p>
+            <p onClick={() => props.showScreen(0)}>PERIOD BALANCE</p>
+            <p onClick={() => props.showScreen(1)}>PLANT INFO</p>
+            <p onClick={() => props.showScreen(2)}>WEATHER</p>
             </div>
     )
 }
