@@ -5,6 +5,7 @@ import Account from './views/Account.jsx'
 import Contact from './views/Contact.jsx'
 import DigitalPlant from './views/DigitalPlant.jsx'
 import Navbar from './components/Navbar.jsx'
+import Footer from './views/Footer.jsx'
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router'
@@ -50,6 +51,7 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/account' element={<Account login={login} loggedIn={isLoggedIn} logout={logout}/>} />
       </Routes>
+      <Footer loggedIn={isLoggedIn} logout={logout}/>
     </Router>
   )
 }

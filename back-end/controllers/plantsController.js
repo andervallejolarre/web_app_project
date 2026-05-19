@@ -149,7 +149,7 @@ class PlantsController {
                 let recommendationSentence = '';
 
                 //Checking Temperatures
-                if ((weather.Avg_Max_Temperature <= plantTypeData.max_temp && avgWeatherTemp >= plantTypeData.min_temp) || (weather.Avg_Min_Temperature >= plantTypeData.min_temp && avgWeatherTemp >= plantTypeData.max_temp)) {
+                if ((weather.Avg_Max_Temperature <= plantTypeData.max_temp && avgWeatherTemp >= plantTypeData.min_temp) || (weather.Avg_Min_Temperature >= plantTypeData.min_temp && avgWeatherTemp <= plantTypeData.max_temp)) {
                     progress += 10;
                     tempBalance = true;
                     highTemperatures = false;

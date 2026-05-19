@@ -83,7 +83,7 @@ function Account(props) {
 
     if (!props.loggedIn) {
         return (
-            <>
+            <section className="account">
                 <div className='accountSec'>
                     <form className='createAccount' onChange={handleChangeForm1} onSubmit={handleSubmit}>
                         <h2>CREATE YOUR ACCOUNT</h2>
@@ -115,12 +115,12 @@ function Account(props) {
                     </form>
                 </div>
                 <h4>{message}</h4>
-            </>
+            </ section>
 
         )
     } else {
         return (
-            <section>
+            <section className="account">
                 <ClientInfo />
                 <section className="logout">
                     <h2>HERE YOU CAN</h2>

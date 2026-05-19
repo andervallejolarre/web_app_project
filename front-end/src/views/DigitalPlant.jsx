@@ -39,10 +39,10 @@ function DigitalPlant(props) {
         }, [])
 
         return (
-            <>
+            <section className="digitalPlant">
                 <section className="screen">
                     <div className="dataBox">
-                        <Contentbar showScreen={showScreen} screenInfo={screenInfo}/>
+                        <Contentbar showScreen={showScreen} screenInfo={screenInfo} />
                         <Weather passData={passData} screen={screenInfo} />
                         <PlantType screen={screenInfo} />
                         <Balance weatherData={weather} screen={screenInfo} />
@@ -53,7 +53,7 @@ function DigitalPlant(props) {
                             <p><strong>Level : </strong>{plantInfo.level}</p>
                             <p><strong>Progress : </strong>{plantInfo.progress}</p>
                         </div>
-                        <progress className="progressBar"value={plantInfo.progress} max={100} />
+                        <progress className="progressBar" value={plantInfo.progress} max={100} />
                     </div>
                     <div className="data1">
                         <p><strong>Watering : </strong>{plantInfo.hidration ? 'ON' : 'OFF'}</p>
@@ -66,18 +66,20 @@ function DigitalPlant(props) {
                     </div>
                 </section>
                 <section className="actionPart">
-                    <Action state={plantInfo} set={setPlantInfo}/>
+                    <Action state={plantInfo} set={setPlantInfo} />
                 </section>
-            </>
+            </section>
         )
     } else {
         return (
+            <section className="digitalPlant">
             <div className="home">
                 <section>
-                <h2>Log In to check on your Plant</h2>
-                <NavLink to="/account"><button>Account</button></NavLink>
+                    <h2>Log In to check on your Plant</h2>
+                    <NavLink to="/account"><button>Account</button></NavLink>
                 </section>
             </div>
+            </section>
         )
     }
 }
