@@ -7,10 +7,15 @@ import Balance from '../components/Balance.jsx'
 import Action from '../components/Action.jsx'
 import SelectedGraph from '../components/SelectedGraph.jsx'
 import Contentbar from '../components/Contentbar.jsx'
+import useMetaData from '../hooks/useMetaData.jsx';
 import { URL } from '../config.js';
 import axios from 'axios'
 
 function DigitalPlant(props) {
+    useMetaData({
+        title: 'DigitalPlant',
+        description: 'Manage your digital plant and track its growth.'
+    });
 
     if (props.loggedIn) {
 

@@ -1,7 +1,13 @@
 import Graphic from '../assets/Plant_Graphic_1.svg?react'
+import useMetaData from '../hooks/useMetaData.jsx';
 import React from 'react'
 
 function About() {
+    useMetaData({ 
+        title: 'About | DigitalPlant', 
+        description: 'Learn more about DigitalPlant and how to take care of your digital plants.' 
+    });
+
     return (
         <section className="about">
             <h2>ABOUT THIS APP</h2>

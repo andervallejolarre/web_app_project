@@ -1,6 +1,12 @@
 import React from 'react'
+import useMetaData from '../hooks/useMetaData.jsx';
 
 function Contact (){
+    useMetaData({
+        title: 'Contact | W... P... S',
+        description: 'Get in touch with the DigitalPlant team for any questions or support.'
+    });
+
     return(
         <section className="contact">
             <div className="contactGrid">

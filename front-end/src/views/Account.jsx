@@ -3,8 +3,13 @@ import { useState } from 'react'
 import axios from 'axios'
 import { URL } from '../config.js';
 import ClientInfo from '../components/ClientInfo.jsx'
+import useMetaData from '../hooks/useMetaData.jsx';
 
 function Account(props) {
+    useMetaData({
+        title: 'Account',
+        description: 'Manage your account, create a new one or log in to your existing account.'
+    });
 
     //State Variables used for Registration and Log in
     const [message, setMessage] = useState('');
