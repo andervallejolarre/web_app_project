@@ -3,13 +3,9 @@ import { useState } from 'react'
 import axios from 'axios'
 import { URL } from '../config.js';
 import ClientInfo from '../components/ClientInfo.jsx'
-import useMetaData from '../hooks/useMetaData.jsx';
+import MetaData from '../components/MetaData.jsx';
 
 function Account(props) {
-    useMetaData({
-        title: 'Account',
-        description: 'Manage your account, create a new one or log in to your existing account.'
-    });
 
     //State Variables used for Registration and Log in
     const [message, setMessage] = useState('');
@@ -88,50 +84,61 @@ function Account(props) {
 
     if (!props.loggedIn) {
         return (
-            <section className="account">
-                <div className='accountSec'>
-                    <form className='createAccount' onChange={handleChangeForm1} onSubmit={handleSubmit}>
-                        <h2>CREATE YOUR ACCOUNT</h2>
-                        <label>Name</label>
-                        <input className="textInput" type='text' name='name' />
-                        <label>Email</label>
-                        <input className="textInput" type='email' name='email' />
-                        <label>password</label>
-                        <input className="textInput" type='text' name='password' />
-                        <label>confirm password</label>
-                        <input className="textInput" type='text' name='password2' />
-                        <div className="checkInput">
-                            <label>Notifications about your plant</label>
-                            <input type="checkbox" name='plantNotif' />
-                        </div>
-                        <div className="checkInput">
-                            <label>Notifications about W... P... S </label>
-                            <input type="checkbox" name='newsNotif' />
-                        </div>
-                        <button>Submit</button>
-                    </form>
-                    <form className='login' onChange={handleChangeForm2} onSubmit={handleSubmit2}>
-                        <h2>LOG IN</h2>
-                        <label>Email</label>
-                        <input className="textInput" type='email' name='email' />
-                        <label>password</label>
-                        <input className="textInput" type='text' name='password' />
-                        <button>Enter</button>
-                    </form>
-                </div>
-                <h4>{message}</h4>
-            </ section>
-
+            <>
+                <MetaData
+                    title="Account | Register and LogIn"
+                    description="Manage your account, create a new one or log in to your existing account."
+                />
+                <section className="account">
+                    <div className='accountSec'>
+                        <form className='createAccount' onChange={handleChangeForm1} onSubmit={handleSubmit}>
+                            <h2>CREATE YOUR ACCOUNT</h2>
+                            <label>Name</label>
+                            <input className="textInput" type='text' name='name' />
+                            <label>Email</label>
+                            <input className="textInput" type='email' name='email' />
+                            <label>password</label>
+                            <input className="textInput" type='text' name='password' />
+                            <label>confirm password</label>
+                            <input className="textInput" type='text' name='password2' />
+                            <div className="checkInput">
+                                <label>Notifications about your plant</label>
+                                <input type="checkbox" name='plantNotif' />
+                            </div>
+                            <div className="checkInput">
+                                <label>Notifications about W... P... S </label>
+                                <input type="checkbox" name='newsNotif' />
+                            </div>
+                            <button>Submit</button>
+                        </form>
+                        <form className='login' onChange={handleChangeForm2} onSubmit={handleSubmit2}>
+                            <h2>LOG IN</h2>
+                            <label>Email</label>
+                            <input className="textInput" type='email' name='email' />
+                            <label>password</label>
+                            <input className="textInput" type='text' name='password' />
+                            <button>Enter</button>
+                        </form>
+                    </div>
+                    <h4>{message}</h4>
+                </ section>
+            </>
         )
     } else {
         return (
-            <section className="account">
-                <ClientInfo />
-                <section className="logout">
-                    <h2>HERE YOU CAN</h2>
-                    <button onClick={props.logout}>Log Out</button>
+            <>
+                <MetaData
+                    title="Account | Info"
+                    description="Your account information and manging options"
+                />
+                <section className="account">
+                    <ClientInfo />
+                    <section className="logout">
+                        <h2>HERE YOU CAN</h2>
+                        <button onClick={props.logout}>Log Out</button>
+                    </section>
                 </section>
-            </section>
+            </>
         )
     }
 }

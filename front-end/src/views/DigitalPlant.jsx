@@ -7,15 +7,11 @@ import Balance from '../components/Balance.jsx'
 import Action from '../components/Action.jsx'
 import SelectedGraph from '../components/SelectedGraph.jsx'
 import Contentbar from '../components/Contentbar.jsx'
-import useMetaData from '../hooks/useMetaData.jsx';
+import MetaData from '../components/MetaData.jsx';
 import { URL } from '../config.js';
 import axios from 'axios'
 
 function DigitalPlant(props) {
-    useMetaData({
-        title: 'DigitalPlant',
-        description: 'Manage your digital plant and track its growth.'
-    });
 
     if (props.loggedIn) {
 
@@ -43,48 +39,61 @@ function DigitalPlant(props) {
             getInfo();
         }, [])
 
+
         return (
-            <section className="digitalPlant">
-                <section className="screen">
-                    <div className="dataBox">
-                        <Contentbar showScreen={showScreen} screenInfo={screenInfo} />
-                        <Weather passData={passData} screen={screenInfo} />
-                        <PlantType screen={screenInfo} />
-                        <Balance weatherData={weather} screen={screenInfo} />
-                    </div>
-                    <SelectedGraph className="plantGraph" level={plantInfo.level} />
-                    <div className="progress">
-                        <div className="dataUp">
-                            <p><strong>Level : </strong>{plantInfo.level}</p>
-                            <p><strong>Progress : </strong>{plantInfo.progress}</p>
+            <>
+                <MetaData
+                    title="DigitalPlant Screen"
+                    description="Manage your digital plant and track its growth"
+                />
+                <section className="digitalPlant">
+                    <section className="screen">
+                        <div className="dataBox">
+                            <Contentbar showScreen={showScreen} screenInfo={screenInfo} />
+                            <Weather passData={passData} screen={screenInfo} />
+                            <PlantType screen={screenInfo} />
+                            <Balance weatherData={weather} screen={screenInfo} />
                         </div>
-                        <progress className="progressBar" value={plantInfo.progress} max={100} />
-                    </div>
-                    <div className="data1">
-                        <p><strong>Watering : </strong>{plantInfo.hidration ? 'ON' : 'OFF'}</p>
-                        <p><strong>Nutrients : </strong>{plantInfo.nutrients ? 'ON' : 'OFF'}</p>
-                    </div>
-                    <div></div>
-                    <div className="data2">
-                        <p><strong>Protection : </strong>{plantInfo.protection ? 'ON' : 'OFF'}</p>
-                        <p><strong>Stress : </strong>{plantInfo.stress}</p>
-                    </div>
+                        <SelectedGraph className="plantGraph" level={plantInfo.level} />
+                        <div className="progress">
+                            <div className="dataUp">
+                                <p><strong>Level : </strong>{plantInfo.level}</p>
+                                <p><strong>Progress : </strong>{plantInfo.progress}</p>
+                            </div>
+                            <progress className="progressBar" value={plantInfo.progress} max={100} />
+                        </div>
+                        <div className="data1">
+                            <p><strong>Watering : </strong>{plantInfo.hidration ? 'ON' : 'OFF'}</p>
+                            <p><strong>Nutrients : </strong>{plantInfo.nutrients ? 'ON' : 'OFF'}</p>
+                        </div>
+                        <div></div>
+                        <div className="data2">
+                            <p><strong>Protection : </strong>{plantInfo.protection ? 'ON' : 'OFF'}</p>
+                            <p><strong>Stress : </strong>{plantInfo.stress}</p>
+                        </div>
+                    </section>
+                    <section className="actionPart">
+                        <Action state={plantInfo} set={setPlantInfo} />
+                    </section>
                 </section>
-                <section className="actionPart">
-                    <Action state={plantInfo} set={setPlantInfo} />
-                </section>
-            </section>
+            </>
         )
     } else {
         return (
-            <section className="digitalPlant">
-            <div className="home">
-                <section>
-                    <h2>Log In to check on your Plant</h2>
-                    <NavLink to="/account"><button>Account</button></NavLink>
+            <>
+                <MetaData
+                    title="DigitalPlant | W... P... S"
+                    description="Log In to unable the DigitalPlant Screen"
+                />
+                <section className="digitalPlant">
+                    <div className="home">
+                        <section>
+                            <h2>Log In to check on your Plant</h2>
+                            <NavLink to="/account"><button>Account</button></NavLink>
+                        </section>
+                    </div>
                 </section>
-            </div>
-            </section>
+            </>
         )
     }
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-function useMetaData({ title, description }) {
+function MetaData({ title, description }) {
   useEffect(() => {
     if (title) document.title = title;
 
@@ -14,6 +14,8 @@ function useMetaData({ title, description }) {
       meta.content = description;
     }
   }, [title, description]);
+
+  return null
 }
 
-export default useMetaData;
+export default MetaData;
