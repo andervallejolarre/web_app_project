@@ -85,7 +85,7 @@ function DigitalPlant(props) {
                     title="DigitalPlant | W... P... S"
                     description="Log In to unable the DigitalPlant Screen"
                 />
-                <section className="digitalPlant">
+                <section className="notDigitalPlant">
                     <div className="home">
                         <section>
                             <h2>Log In to check on your Plant</h2>
