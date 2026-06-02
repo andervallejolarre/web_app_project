@@ -13,34 +13,44 @@ import axios from 'axios'
 
 function DigitalPlant(props) {
 
-    if (props.loggedIn) {
 
-        const [weather, setWeather] = useState({})
-        const [plantInfo, setPlantInfo] = useState({})
-        const [screenInfo, setScreenInfo] = useState(0);
 
-        const passData = (info) => {
-            setWeather(info);
-        }
+    const [weather, setWeather] = useState({})
+    const [plantInfo, setPlantInfo] = useState({
+        hidration: false,
+        nutrients: false,
+        protection: false,
+        stress: 0,
+        level: 0,
+        progress: 0
+    })
+    const [screenInfo, setScreenInfo] = useState(0);
 
-        const showScreen = (val) => {
-            setScreenInfo(val);
-        }
+    const passData = (info) => {
+        setWeather(info);
+    }
 
-        useEffect(() => {
-            const getInfo = async () => {
-                try {
-                    const plant = await axios.get(`${URL}/plant/plant-info`) || {};
-                    setPlantInfo(plant.data.payload);
-                } catch (e) {
-                    console.log(e);
-                }
+    const showScreen = (val) => {
+        setScreenInfo(val);
+    }
+
+    useEffect(() => {
+        const getInfo = async () => {
+            try {
+                const plant = await axios.get(`${URL}/plant/plant-info`) || {};
+                setPlantInfo(plant.data.payload);
+            } catch (e) {
+                console.log(e);
             }
+        }
+        if (props.loggedIn) {
             getInfo();
-        }, [])
+        }
+    }, [props.loggedIn])
 
 
-        return (
+    return (
+        props.loggedIn ?
             <>
                 <MetaData
                     title="DigitalPlant Screen"
@@ -77,15 +87,13 @@ function DigitalPlant(props) {
                     </section>
                 </section>
             </>
-        )
-    } else {
-        return (
+            :
             <>
                 <MetaData
                     title="DigitalPlant | W... P... S"
                     description="Log In to unable the DigitalPlant Screen"
                 />
-                <section className="digitalPlant">
+                <section className="notDigitalPlant">
                     <div className="home">
                         <section>
                             <h2>Log In to check on your Plant</h2>
@@ -94,8 +102,7 @@ function DigitalPlant(props) {
                     </div>
                 </section>
             </>
-        )
-    }
+    )
 }
 
 export default DigitalPlant

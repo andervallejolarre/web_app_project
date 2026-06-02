@@ -131,7 +131,7 @@ function Account(props) {
                     title="Account | Info"
                     description="Your account information and manging options"
                 />
-                <section className="account">
+                <section className="accountLogged">
                     <ClientInfo />
                     <section className="logout">
                         <h2>HERE YOU CAN</h2>
