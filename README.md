@@ -1,7 +1,5 @@
 # Digital Plant Web App
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-
 > A full-stack web application for tracking digital plants, clients, and plant types.
 
 <img src="./front-end/public/DigitalPlant_screen.png" width="480">
@@ -27,23 +25,6 @@ This repository contains a two-part web application: a Node.js back-end (REST AP
 - External APIs: Weather API (for real-time weather data fetching)
 - Geolocation: Browser-based geolocation API for user location tracking
 - Tools: npm, Vite, ESLint
-
-## Repository Structure
-
-- [back-end](back-end)
-  - [back-end/index.js](back-end/index.js)
-  - [back-end/controllers](back-end/controllers)
-  - [back-end/models](back-end/models)
-  - [back-end/routes](back-end/routes)
-- [front-end](front-end)
-  - [front-end/src](front-end/src)
-  - [front-end/public](front-end/public)
-
-Key files:
-
-- [front-end/src/App.jsx](front-end/src/App.jsx)
-- [front-end/src/main.jsx](front-end/src/main.jsx)
-- [back-end/index.js](back-end/index.js)
 
 ## API Routes (examples)
 
@@ -111,18 +92,6 @@ Adjust names to match what's read in your code.
 - **[GeoLocation.jsx](front-end/src/components/GeoLocation.jsx)** — Handles geolocation detection and user location tracking
 - **[DigitalPlant.jsx](front-end/src/views/DigitalPlant.jsx)** — Core plant view that integrates user actions, weather data, and plant state
 - **[Balance.jsx](front-end/src/components/Balance.jsx)** & **[Action.jsx](front-end/src/components/Action.jsx)** — Manage user interactions and plant care actions
-
-## Testing & Linting
-
-- Lint front-end with ESLint (configured in `front-end/eslint.config.js`).
-- Add or run tests if present via `npm test` in each package.
-
-## Contributing
-
-Contributions are welcome. Please open issues or pull requests and follow existing code style.
-
-## License
-This project is licensed under the MIT License — see the `LICENSE` file for details.
 
 ## Authors
 - Project maintained by the authors listed in the repository.
