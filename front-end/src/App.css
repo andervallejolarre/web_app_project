@@ -82,7 +82,7 @@ body {
 }
 
 .account {
-    height: 81vh;
+    height: 100%;
 
     .accountSec {
         max-width: 1200px;
@@ -132,7 +132,7 @@ body {
 }
 
 .accountLogged {
-    height: 81vh;
+    height: 100%;
 
     .yourInfo {
         max-width: 1200px;
@@ -185,7 +185,7 @@ body {
 }
 
 .notDigitalPlant {
-    height: 81vh;
+    height: 100%;
 
     .home {
         max-width: 1200px;
@@ -199,7 +199,7 @@ body {
 }
 
 .digitalPlant {
-    height: 81vh;
+    height: 100%;
 
     .screen {
         max-width: 1200px;
@@ -509,7 +509,7 @@ body {
 }
 
 .footer {
-    height: 13vh;
+    height: 17vh;
     border-top: solid 2px #bbbde2;
     align-content: center;
     display: flex;
