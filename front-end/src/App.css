@@ -194,6 +194,16 @@ body {
         border: solid 1px;
         border-radius: 10px;
         align-content: center;
+
+        h3 {
+            font-size: medium;
+            padding: 0 15%;
+            font-stretch: extra-expanded
+        }
+
+        button {
+            margin: 2em;
+        }
     }
 
 }
@@ -454,6 +464,12 @@ body {
         margin: 0;
     }
 
+    img {
+        margin: 0 auto 5em;
+        max-height: 400px;
+        max-width: 100%;
+    }
+    
     .available {
         margin: 0 auto 5em;
         height: 200px;

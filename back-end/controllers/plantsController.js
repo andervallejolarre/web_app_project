@@ -157,14 +157,14 @@ class PlantsController {
                     tempSentence += 'in between'
                 } else if (weather.Avg_Max_Temperature > plantTypeData.max_temp && weather.Avg_Min_Temperature > avgPlantTypeTemp) {
                     progress -= 5;
-                    stress -= 5;
+                    stress += 5;
                     tempBalance = false;
                     highTemperatures = true;
                     lowTemperatures = false;
                     tempSentence += 'above'
                 } else if (weather.Avg_Max_Temperature < plantTypeData.max_temp && weather.Avg_Min_Temperature < avgPlantTypeTemp) {
                     progress -= 5;
-                    stress -= 5;
+                    stress += 5;
                     tempBalance = false;
                     highTemperatures = false;
                     lowTemperatures = true;
@@ -180,14 +180,14 @@ class PlantsController {
                     humSentence += 'in between'
                 } else if (weather.Avg_Humidity > plantTypeData.max_humidity) {
                     progress -= 10;
-                    stress -= 5;
+                    stress += 5;
                     humidityBalance = false;
                     highHumidity = true;
                     lowHumidity = false;
                     humSentence += 'above'
                 } else if (weather.Avg_Humidity < plantTypeData.min_humidity) {
                     progress -= 10;
-                    stress -= 5;
+                    stress += 5;
                     humidityBalance = false;
                     highHumidity = false;
                     lowHumidity = true;
@@ -203,14 +203,14 @@ class PlantsController {
                     radSentence += 'in between'
                 } else if (weather.Avg_UV_Index > plantTypeData.max_radiation) {
                     progress -= 10;
-                    stress -= 5;
+                    stress += 5;
                     radiationBalance = false;
                     highRadiation = true;
                     lowRadiation = false;
                     radSentence += 'above'
                 } else if (weather.Avg_UV_Index < plantTypeData.min_radiation) {
                     progress -= 10;
-                    stress -= 5;
+                    stress += 5;
                     radiationBalance = false;
                     highRadiation = false;
                     lowRadiation = true;
@@ -224,7 +224,7 @@ class PlantsController {
                     overIrrigation = false;
                 } else if (plantData.hidration) {
                     progress -= 10;
-                    stress -= 5;
+                    stress += 5;
                     overIrrigation = true;
                     actionSentence += 'Stop watering, '
                 }
@@ -235,18 +235,18 @@ class PlantsController {
                     overNutrients = false;
                 } else if (plantData.nutrients) {
                     progress -= 10;
-                    stress -= 5;
+                    stress += 5;
                     overNutrients = true;
                     actionSentence += 'Stop adding nutrients, '
                 }
 
                 //Protection ON/OFF
-                if (plantData.protection && ((highTemperatures && highRadiation) || (lowTemperatures && lowRadiation))) {
+                if (plantData.protection && ((highTemperatures && highRadiation) || (lowTemperatures && highHumidity) || (highRadiation && highHumidity))) {
                     progress += 10;
                     overProtect = false;
                 } else if (plantData.protection) {
                     progress -= 10;
-                    stress -= 5;
+                    stress += 5;
                     overProtect = true;
                     actionSentence += 'Take the protection off, '
                 }
@@ -284,7 +284,7 @@ class PlantsController {
                 if (!plantData.nutrients && ((tempBalance && radiationBalance) || (highTemperatures && radiationBalance) || (tempBalance && humidityBalance && highRadiation))) {
                     recommendationSentence += `Try adding some nutrients to your plant, `
                 }
-                if (!plantData.protection && ((highTemperatures && highRadiation) || (lowTemperatures && lowRadiation))) {
+                if (!plantData.protection && ((highTemperatures && highRadiation) || (lowTemperatures && highHumidity) || (highRadiation && highHumidity))) {
                     recommendationSentence += `Try adding some protection to your plant, `
                 }
 

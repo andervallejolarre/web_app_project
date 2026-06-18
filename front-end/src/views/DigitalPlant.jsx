@@ -96,8 +96,10 @@ function DigitalPlant(props) {
                 <section className="notDigitalPlant">
                     <div className="home">
                         <section>
-                            <h2>Log In to check on your Plant</h2>
+                            <h2>Register or Log In to check on your Plant</h2>
                             <NavLink to="/account"><button>Account</button></NavLink>
+                            <h3>Or if you want to know how DigitalPlant works first go to</h3>
+                            <NavLink to="/about"><button>About</button></NavLink>
                         </section>
                     </div>
                 </section>
