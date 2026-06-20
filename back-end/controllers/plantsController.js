@@ -179,14 +179,14 @@ class PlantsController {
                     lowHumidity = false;
                     humSentence += 'in between'
                 } else if (weather.Avg_Humidity > plantTypeData.max_humidity) {
-                    progress -= 10;
+                    progress -= 5;
                     stress += 5;
                     humidityBalance = false;
                     highHumidity = true;
                     lowHumidity = false;
                     humSentence += 'above'
                 } else if (weather.Avg_Humidity < plantTypeData.min_humidity) {
-                    progress -= 10;
+                    progress -= 5;
                     stress += 5;
                     humidityBalance = false;
                     highHumidity = false;
@@ -202,14 +202,14 @@ class PlantsController {
                     lowRadiation = false;
                     radSentence += 'in between'
                 } else if (weather.Avg_UV_Index > plantTypeData.max_radiation) {
-                    progress -= 10;
+                    progress -= 5;
                     stress += 5;
                     radiationBalance = false;
                     highRadiation = true;
                     lowRadiation = false;
                     radSentence += 'above'
                 } else if (weather.Avg_UV_Index < plantTypeData.min_radiation) {
-                    progress -= 10;
+                    progress -= 5;
                     stress += 5;
                     radiationBalance = false;
                     highRadiation = false;
@@ -219,8 +219,9 @@ class PlantsController {
 
                 //Checking User Actions
                 //Hidration ON/OFF
-                if (plantData.hidration && ((tempBalance && humidityBalance && radiationBalance) || (highTemperatures && highRadiation && humidityBalance && !plantData.protection) || (highTemperatures && highRadiation && lowHumidity) || (lowHumidity && tempBalance && radiationBalance)|| (lowHumidity && tempBalance && highRadiation) || (lowHumidity && highTemperatures && radiationBalance) || (lowHumidity && lowTemperatures && highRadiation) || (lowHumidity && highTemperatures && lowRadiation) || (lowHumidity && lowTemperatures && lowRadiation && plantData.protection))) {
+                if (plantData.hidration && ((tempBalance && humidityBalance && radiationBalance) || (highTemperatures && highRadiation && humidityBalance && !plantData.protection) || (highTemperatures && highRadiation && lowHumidity) || (lowHumidity && tempBalance && radiationBalance) || (lowHumidity && tempBalance && highRadiation) || (lowHumidity && highTemperatures && radiationBalance) || (lowHumidity && lowTemperatures && highRadiation) || (lowHumidity && highTemperatures && lowRadiation) || (lowHumidity && lowTemperatures && lowRadiation && plantData.protection))) {
                     progress += 10;
+                    stress -= 5;
                     overIrrigation = false;
                 } else if (plantData.hidration) {
                     progress -= 10;
@@ -230,8 +231,9 @@ class PlantsController {
                 }
 
                 //Nutrients ON/OFF
-                if (plantData.nutrients && ((tempBalance && radiationBalance && humidityBalance)||(tempBalance && radiationBalance && lowHumidity && plantData.hidration) ||(highTemperatures && radiationBalance && lowHumidity && plantData.hidration) || (lowHumidity && lowTemperatures && lowRadiation && plantData.protection && plantData.hidration) || (highTemperatures && radiationBalance && humidityBalance) || (tempBalance && humidityBalance && lowRadiation)||(tempBalance && lowHumidity && lowRadiation) || (highTemperatures && highRadiation && highHumidity && plantData.protection))) {
+                if (plantData.nutrients && ((tempBalance && radiationBalance && humidityBalance) || (tempBalance && radiationBalance && lowHumidity && plantData.hidration) || (highTemperatures && radiationBalance && lowHumidity && plantData.hidration) || (lowHumidity && lowTemperatures && lowRadiation && plantData.protection && plantData.hidration) || (highTemperatures && radiationBalance && humidityBalance) || (tempBalance && humidityBalance && lowRadiation) || (tempBalance && lowHumidity && lowRadiation) || (highTemperatures && highRadiation && highHumidity && plantData.protection) || (lowTemperatures && highHumidity && highRadiation && plantData.protection))) {
                     progress += 10;
+                    stress -= 5;
                     overNutrients = false;
                 } else if (plantData.nutrients) {
                     progress -= 10;
@@ -243,6 +245,7 @@ class PlantsController {
                 //Protection ON/OFF
                 if (plantData.protection && ((highTemperatures && highRadiation && humidityBalance) || (highTemperatures && radiationBalance && highHumidity) || (lowTemperatures && highHumidity && radiationBalance) || (highRadiation && highHumidity && tempBalance) || (lowTemperatures && lowRadiation && humidityBalance) || (lowTemperatures && lowRadiation && highHumidity) || (lowTemperatures && lowRadiation && lowHumidity) || (highTemperatures && highRadiation && highHumidity) || (lowTemperatures && highHumidity && highRadiation))) {
                     progress += 10;
+                    stress -= 5;
                     overProtect = false;
                 } else if (plantData.protection) {
                     progress -= 10;
@@ -278,10 +281,10 @@ class PlantsController {
 
                 //Third message with some recommendations
 
-                if (!plantData.hidration && ((tempBalance && humidityBalance && radiationBalance) || (highTemperatures && highRadiation && humidityBalance && !plantData.protection) || (highTemperatures && highRadiation && lowHumidity) || (lowHumidity && tempBalance && radiationBalance)|| (lowHumidity && tempBalance && highRadiation) || (lowHumidity && highTemperatures && radiationBalance) || (lowHumidity && lowTemperatures && highRadiation) || (lowHumidity && highTemperatures && lowRadiation) || (lowHumidity && lowTemperatures && lowRadiation && plantData.protection))) {
+                if (!plantData.hidration && ((tempBalance && humidityBalance && radiationBalance) || (highTemperatures && highRadiation && humidityBalance && !plantData.protection) || (highTemperatures && highRadiation && lowHumidity) || (lowHumidity && tempBalance && radiationBalance) || (lowHumidity && tempBalance && highRadiation) || (lowHumidity && highTemperatures && radiationBalance) || (lowHumidity && lowTemperatures && highRadiation) || (lowHumidity && highTemperatures && lowRadiation) || (lowHumidity && lowTemperatures && lowRadiation && plantData.protection))) {
                     recommendationSentence += `Try adding some water to your plant, `
                 }
-                if (!plantData.nutrients && ((tempBalance && radiationBalance && humidityBalance)||(tempBalance && radiationBalance && lowHumidity && plantData.hidration) ||(highTemperatures && radiationBalance && lowHumidity && plantData.hidration) || (highTemperatures && radiationBalance && humidityBalance) || (tempBalance && humidityBalance && lowRadiation)||(tempBalance && lowHumidity && lowRadiation) || (lowHumidity && lowTemperatures && lowRadiation && plantData.protection && plantData.hidration) || (highTemperatures && highRadiation && highHumidity && plantData.protection))) {
+                if (!plantData.nutrients && ((tempBalance && radiationBalance && humidityBalance) || (tempBalance && radiationBalance && lowHumidity && plantData.hidration) || (highTemperatures && radiationBalance && lowHumidity && plantData.hidration) || (highTemperatures && radiationBalance && humidityBalance) || (tempBalance && humidityBalance && lowRadiation) || (tempBalance && lowHumidity && lowRadiation) || (lowHumidity && lowTemperatures && lowRadiation && plantData.protection && plantData.hidration) || (highTemperatures && highRadiation && highHumidity && plantData.protection) || (lowTemperatures && highHumidity && highRadiation && plantData.protection))) {
                     recommendationSentence += `Try adding some nutrients to your plant, `
                 }
                 if (!plantData.protection && ((highTemperatures && highRadiation && humidityBalance) || (highTemperatures && radiationBalance && highHumidity) || (lowTemperatures && highHumidity && radiationBalance) || (highRadiation && highHumidity && tempBalance) || (lowTemperatures && lowRadiation && humidityBalance) || (lowTemperatures && lowRadiation && highHumidity) || (lowTemperatures && lowRadiation && lowHumidity) || (highTemperatures && highRadiation && highHumidity) || (lowTemperatures && highHumidity && highRadiation))) {

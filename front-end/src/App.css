@@ -36,13 +36,15 @@ body {
     border-bottom: solid 2px #bbbde2;
 
     h1 {
-        font-size: xx-large;
+        /*font-size: xx-large;*/
+        font-size: clamp(1.7rem, 3vw, 2rem);
         margin: 0 5%;
         align-self: center;
     }
 
     .navlink {
-        font-size: small;
+        /*font-size: small;*/
+        font-size: clamp(0.7rem, 1vw, 1.2rem);
         font-weight: 700;
         font-stretch: extra-expanded;
         line-height: 0;
@@ -52,6 +54,8 @@ body {
         color: #bbbde2;
 
         .accountIcon {
+            width: 5vh;
+
             #Vector {
                 stroke: #bbbde2;
             }
@@ -71,7 +75,8 @@ body {
     }
 
     .centerNav {
-        width: 40%;
+        width: 50vw;
+        max-width: 600px;
         display: flex;
         justify-content: space-around;
     }
@@ -375,6 +380,7 @@ body {
 
     .actionPart {
         margin: 0 5%;
+        margin-bottom: 5%;
         border-top: solid 1px #bbbde2;
 
         h2 {
@@ -469,7 +475,7 @@ body {
         max-height: 400px;
         max-width: 100%;
     }
-    
+
     .available {
         margin: 0 auto 5em;
         height: 200px;
@@ -562,6 +568,7 @@ body {
 
         .actionPart {
             margin-top: 8%;
+            margin-bottom: 8%;
 
             .action {
                 .switch input[type="checkbox"]:after {
@@ -616,19 +623,25 @@ body {
     .navbar {
 
         h1 {
-            font-size: x-large;
+            /*font-size: x-large;*/
+            font-size: clamp(1.4rem, 4.5vw, 2rem);
             margin: 0 0 0 3%;
             align-self: center;
         }
 
         .navlink {
-            font-size: x-small;
+            /*font-size: x-small;*/
+            font-size: clamp(0.6rem, 1.8vw, 1.4rem);
             padding: 0 0.5em;
 
         }
 
         .navlink:last-child {
-            margin: 0 3% 0 5%;
+            margin: 0 3% 0 0%;
+        }
+
+        .centerNav {
+            width: 50vw;
         }
     }
 
@@ -637,7 +650,7 @@ body {
         align-content: center;
 
         .home {
-            max-width: 1200px;
+            max-width: 768px;
             height: 60vh;
             margin: 10% 5%;
             border: solid 1px;
@@ -648,13 +661,15 @@ body {
     }
 
     .digitalPlant {
+        min-height: 81vh;
+        height:100%;
         display: grid;
         grid-template-columns: 70% 30%;
-        align-items: center;
-
+        margin-bottom: 10vh;
+        /*align-items: center;*/
         .screen {
             margin: 5%;
-            height: 90%;
+            height: 100%;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
 
@@ -662,7 +677,8 @@ body {
                 align-self: center;
                 justify-self: center;
                 margin: 5% 0;
-                height: 28vh;
+                min-height: 28vh;
+                height:100%;
                 width: 90%;
                 grid-column: 1/4;
                 grid-row: 3;
@@ -782,7 +798,7 @@ body {
         }
 
         .actionPart {
-
+            align-self: center;
             h2 {
                 font-size: medium;
                 margin-bottom: 30%;
@@ -810,13 +826,15 @@ body {
     }
 
     .contact {
+        min-height: 81vh;
+        height: 100%;
 
         .contactGrid {
             margin: 10% 5%;
             grid-template-columns: 20% 55% 20%;
             font-size: x-small;
             column-gap: 2em;
-            row-gap: 12em;
+            row-gap: 8em;
 
             h3 {
                 font-size: small;
@@ -846,12 +864,13 @@ body {
     }
 
     .account {
-        height: 81vh;
+        height: 100%;
 
         .accountSec {
             max-width: 1200px;
-            height: 80%;
+            height: 100%;
             margin: 10% 5% 5% 5%;
+            padding: 5vh 0;
             border: solid 1px;
             border-radius: 10px;
             align-content: center;
@@ -899,7 +918,7 @@ body {
     }
 
     .accountLogged {
-        height: 81vh;
+        height: 100%;
 
         .yourInfo {
             margin-top: 5%;
@@ -916,7 +935,11 @@ body {
         .logout {
 
             h2 {
-                margin-top: 5%;
+                margin-top: 3vh;
+            }
+
+            button{
+                margin-bottom: 5vh;
             }
         }
     }
@@ -925,33 +948,39 @@ body {
         .logo+p {
             padding: 0 5%;
         }
+
+        h4{
+            margin-top:0;
+        }
     }
 }
 
 @media all and (max-width:480px) {
 
     .navbar {
-        justify-content: left;
+        justify-content: space-between;
 
         h1 {
-            font-size: large;
+            /*font-size: large;*/
+            font-size: clamp(0.8rem, 4vw, 2rem);
             margin: 0 2% 0 2%;
             align-self: center;
         }
 
         .navlink {
-            font-size: xx-small;
+            /*font-size: xx-small;*/
+            font-size: clamp(0.5rem, 2.2vw, 2rem);
             padding: 0 0.5em;
-
+            margin: 0 1%;
         }
 
         .navlink:last-child {
-            margin: 0 2% 0 3%;
+            margin: 0 2% 0 0;
 
         }
 
         .centerNav {
-            width: 55%;
+            width: 50vw;
             display: flex;
             justify-content: left;
             margin-right: 5%;
@@ -980,19 +1009,20 @@ body {
     .digitalPlant {
         display: grid;
         grid-template-columns: 1fr;
-        align-items: center;
+        /*align-items: center;*/
 
         .screen {
             margin: 5%;
-            height: 90%;
+            height: 100%;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
 
             .dataBox {
                 align-self: center;
                 justify-self: center;
-                margin: 5% 0;
-                height: 27vh;
+                margin: 5% 0 2% 0;
+                min-height: 27vh;
+                height:100%;
                 width: 90%;
                 grid-column: 1/4;
                 grid-row: 3;
@@ -1112,6 +1142,7 @@ body {
         }
 
         .actionPart {
+            margin-top: 10vh;
 
             h2 {
                 font-size: medium;
@@ -1123,6 +1154,11 @@ body {
                 display: flex;
                 flex-direction: row;
                 font-size: smaller;
+
+                label:first-child{
+                    padding-left: 5vw;
+                    margin-right:2%;
+                }
 
                 .switch {
                     position: relative;
@@ -1138,8 +1174,8 @@ body {
                     position: absolute;
                     top: -40px;
                     left: -65px;
-                    height: 16px;
-                    width: 32px;
+                    height: 25px;
+                    width: 48px;
                     background: #6F579A;
                     border: solid 1px #bbbde2;
                     border-radius: 6px;
@@ -1150,8 +1186,8 @@ body {
                 .switch input[type="checkbox"]:after {
                     content: '';
                     position: absolute;
-                    height: 12px;
-                    width: 12px;
+                    height: 20px;
+                    width: 20px;
                     background: #6F579A;
                     border: solid 1px #bbbde2;
                     border-radius: 4px;
@@ -1160,7 +1196,7 @@ body {
                 }
 
                 .switch input[type="checkbox"]:checked::after {
-                    transform: translate(-52px, -51px);
+                    transform: translate(-45px, -51px);
                     background: #bbbde2;
                 }
 
@@ -1207,6 +1243,7 @@ body {
     }
 
     .contact {
+        height:100%;
 
         .contactGrid {
             margin: 10%;
@@ -1243,12 +1280,14 @@ body {
     }
 
     .account {
-        height: 81vh;
+        min-height: 81vh;
+        heigth:100%;
 
         .accountSec {
             max-width: 1200px;
-            height: 80%;
+            height: 100%;
             margin: 15% 5% 5% 5%;
+            padding: 5vh 0;
             border: solid 1px;
             border-radius: 10px;
             align-content: center;
@@ -1296,7 +1335,9 @@ body {
     }
 
     .accountLogged {
-        height: 81vh;
+        min-height: 81vh;
+        height:100%;
+        margin-bottom: 5vh;
 
         .yourInfo {
             margin-top: 15%;
@@ -1321,6 +1362,12 @@ body {
     .footer {
         .logo+p {
             padding: 0 5%;
+        }
+
+        & div {
+            h4 {
+                margin-top: 0;
+            }
         }
     }
 }
