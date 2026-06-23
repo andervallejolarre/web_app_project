@@ -21,6 +21,7 @@ function ClientInfo() {
 
     let { name, email, last_log, createdAt, plant_notif, news_notif } = info;
 
+    const dateObject = new Date(Number(last_log));
 
     return (
         <div className='yourInfo'>
@@ -36,11 +37,15 @@ function ClientInfo() {
                 </div>
                 <div>
                     <p>Registered on:</p>
-                    <p>{createdAt}</p>
+                    <p>{createdAt 
+                        ? createdAt.slice(0,10)
+                        : 'loading..'}</p>
                 </div>
                 <div>
                     <p>Last Log In:</p>
-                    <p>{last_log}</p>
+                    <p>{last_log
+                        ? dateObject.toISOString().slice(0,10)
+                        : 'loading..'}</p>
                 </div>
             </section>
             <section>

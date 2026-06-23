@@ -7,13 +7,12 @@ import Balance from '../components/Balance.jsx'
 import Action from '../components/Action.jsx'
 import SelectedGraph from '../components/SelectedGraph.jsx'
 import Contentbar from '../components/Contentbar.jsx'
-import MetaData from '../components/MetaData.jsx';
+import MetaData from '../components/MetaData.jsx'
+import Timer from '../components/Timer.jsx';
 import { URL } from '../config.js';
 import axios from 'axios'
 
 function DigitalPlant(props) {
-
-
 
     const [weather, setWeather] = useState({})
     const [plantInfo, setPlantInfo] = useState({
@@ -22,7 +21,9 @@ function DigitalPlant(props) {
         protection: false,
         stress: 0,
         level: 0,
-        progress: 0
+        progress: 0,
+        firstVisit: true,
+        updated:null,
     })
     const [screenInfo, setScreenInfo] = useState(0);
 
@@ -48,6 +49,11 @@ function DigitalPlant(props) {
         }
     }, [props.loggedIn])
 
+    const handleTimerReady = () => {
+        // Timer reached 0 - add logic here later
+        getInfo();
+        console.log('Timer ready - balance update available');
+    }
 
     return (
         props.loggedIn ?
@@ -57,17 +63,18 @@ function DigitalPlant(props) {
                     description="Manage your digital plant and track its growth"
                 />
                 <section className="digitalPlant">
+                    <Timer updated={plantInfo.updated} timer={handleTimerReady} />
                     <section className="screen">
                         <div className="dataBox">
                             <Contentbar showScreen={showScreen} screenInfo={screenInfo} />
                             <Weather passData={passData} screen={screenInfo} />
                             <PlantType screen={screenInfo} />
-                            <Balance weatherData={weather} screen={screenInfo} />
+                            <Balance weatherData={weather} screen={screenInfo} state={plantInfo} set={setPlantInfo} />
                         </div>
                         <SelectedGraph className="plantGraph" level={plantInfo.level} />
                         <div className="progress">
                             <div className="dataUp">
-                                <p><strong>Level : </strong>{plantInfo.level}</p>
+                          <p><strong>Level : </strong>{plantInfo.level}</p>
                                 <p><strong>Progress : </strong>{plantInfo.progress}</p>
                             </div>
                             <progress className="progressBar" value={plantInfo.progress} max={100} />

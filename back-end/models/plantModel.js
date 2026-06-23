@@ -11,6 +11,7 @@ const plantsSchema = new Schema({
     stress: {type: Number, required: true},
     progress: {type: Number, required: true},
     level: {type: Number, required: true},
+    firstVisit: {type: Boolean, required: true}
 })
 
 module.exports = mongoose.model('plants', plantsSchema)
