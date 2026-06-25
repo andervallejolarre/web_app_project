@@ -21,7 +21,11 @@ function App() {
       if (token === null) setIsLoggedIn(false);
       try {
         axios.defaults.headers.common['Authorization'] = token;
-        const res = await axios.post(`${URL}client/verify_token`)
+        const res = await axios.post(`${URL}client/verify_token`, dataToSend, {
+          headers: {
+            "Content-Type": "applications/json",
+          }
+        });
         return res.data.ok ? login(token) : logout()
       } catch (e) {
         console.log(e);
@@ -49,9 +53,9 @@ function App() {
         <Route path='/' element={<DigitalPlant loggedIn={isLoggedIn} />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
-        <Route path='/account' element={<Account login={login} loggedIn={isLoggedIn} logout={logout}/>} />
+        <Route path='/account' element={<Account login={login} loggedIn={isLoggedIn} logout={logout} />} />
       </Routes>
-      <Footer loggedIn={isLoggedIn} logout={logout}/>
+      <Footer loggedIn={isLoggedIn} logout={logout} />
     </Router>
   )
 }

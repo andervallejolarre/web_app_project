@@ -10,7 +10,11 @@ function PlantType(props) {
     useEffect(() => {
         const getInfo = async () => {
             try {
-                const plantType = await axios.get(`${URL}/plant/plant-type-info`) || {};
+                const plantType = await axios.get(`${URL}/plant/plant-type-info`, dataToSend, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }) || {};
                 setPlantTypeInfo(plantType.data.payload);
             } catch (e) {
                 console.log(e);

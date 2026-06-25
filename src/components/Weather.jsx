@@ -18,7 +18,11 @@ function Weather(props) {
         if (!location) return;
         const getInfo = async () => {
             try {
-                const weather = await axios.get(`${URL}/plant/weather?latitude=${location.latitude}&longitude=${location.longitude}`);
+                const weather = await axios.get(`${URL}/plant/weather?latitude=${location.latitude}&longitude=${location.longitude}`, dataToSend, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
                 setWeatherInfo(weather.data.payload);
                 props.passData(weather.data.payload);
             } catch (e) {

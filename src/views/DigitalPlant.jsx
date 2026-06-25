@@ -23,7 +23,7 @@ function DigitalPlant(props) {
         level: 0,
         progress: 0,
         firstVisit: true,
-        updated:null,
+        updated: null,
     })
     const [screenInfo, setScreenInfo] = useState(0);
 
@@ -38,7 +38,11 @@ function DigitalPlant(props) {
     useEffect(() => {
         const getInfo = async () => {
             try {
-                const plant = await axios.get(`${URL}/plant/plant-info`) || {};
+                const plant = await axios.get(`${URL}/plant/plant-info`, dataToSend, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }) || {};
                 setPlantInfo(plant.data.payload);
             } catch (e) {
                 console.log(e);
@@ -74,7 +78,7 @@ function DigitalPlant(props) {
                         <SelectedGraph className="plantGraph" level={plantInfo.level} />
                         <div className="progress">
                             <div className="dataUp">
-                          <p><strong>Level : </strong>{plantInfo.level}</p>
+                                <p><strong>Level : </strong>{plantInfo.level}</p>
                                 <p><strong>Progress : </strong>{plantInfo.progress}</p>
                             </div>
                             <progress className="progressBar" value={plantInfo.progress} max={100} />

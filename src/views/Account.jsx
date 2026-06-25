@@ -38,20 +38,30 @@ function Account(props) {
         event.preventDefault();
         try {
             //Creating a new account
-            const res = await axios.post(`${URL}/client/new`, {
-                name: newClientInfo.name,
-                email: newClientInfo.email,
-                password: newClientInfo.password,
-                password2: newClientInfo.password2,
-                plantNotif: newClientInfo.plantNotif,
-                newsNotif: newClientInfo.newsNotif,
-            })
+            const res = await axios.post(`${URL}/client/new`, dataToSend, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            },
+                {
+                    name: newClientInfo.name,
+                    email: newClientInfo.email,
+                    password: newClientInfo.password,
+                    password2: newClientInfo.password2,
+                    plantNotif: newClientInfo.plantNotif,
+                    newsNotif: newClientInfo.newsNotif,
+                })
             //If creating new account succesful we create a new plant
             if (res.data.ok) {
-                const secondRes = await axios.post(`${URL}/plant/new`, {
-                    email: newClientInfo.email,
-                    type: 'Rubyceae Byttea',
-                })
+                const secondRes = await axios.post(`${URL}/plant/new`, dataToSend, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                },
+                    {
+                        email: newClientInfo.email,
+                        type: 'Rubyceae Byttea',
+                    });
                 if (secondRes.data.ok) {
                     setTimeout(() => {
                         props.login(res.data.token);
@@ -67,10 +77,15 @@ function Account(props) {
     const handleSubmit2 = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.post(`${URL}/client/login`, {
-                email: oldClient.email,
-                password: oldClient.password,
-            })
+            const res = await axios.post(`${URL}/client/login`, dataToSend, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            },
+                {
+                    email: oldClient.email,
+                    password: oldClient.password,
+                })
             setMessage(res.data.payload)
             if (res.data.ok) {
                 setTimeout(() => {

@@ -8,9 +8,14 @@ function Action(props) {
     const handleChange = async (event) => {
         try {
             //changing action parameter in state variable of DigitalPlant, to be displayed
-           props.set({ ...props.state, [event.target.name]: !props.state[event.target.name]});
+            props.set({ ...props.state, [event.target.name]: !props.state[event.target.name] });
             //Changing action parameters in plant DB
-            const res = await axios.post(`${URL}/plant/action`, { ...props.state, [event.target.name]: !props.state[event.target.name]})
+            const res = await axios.post(`${URL}/plant/action`, dataToSend, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            },
+                { ...props.state, [event.target.name]: !props.state[event.target.name] })
             console.log(res.data.payload)
         } catch (e) {
             console.log(e);

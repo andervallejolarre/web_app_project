@@ -10,7 +10,11 @@ function ClientInfo() {
 
         const getInfo = async () => {
             try {
-                const client = await axios.get(`${URL}/client/client-info`);
+                const client = await axios.get(`${URL}/client/client-info`, dataToSend, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
                 setInfo(client.data.payload);
             } catch (e) {
                 console.log(e);
@@ -37,14 +41,14 @@ function ClientInfo() {
                 </div>
                 <div>
                     <p>Registered on:</p>
-                    <p>{createdAt 
-                        ? createdAt.slice(0,10)
+                    <p>{createdAt
+                        ? createdAt.slice(0, 10)
                         : 'loading..'}</p>
                 </div>
                 <div>
                     <p>Last Log In:</p>
                     <p>{last_log
-                        ? dateObject.toISOString().slice(0,10)
+                        ? dateObject.toISOString().slice(0, 10)
                         : 'loading..'}</p>
                 </div>
             </section>
@@ -53,8 +57,8 @@ function ClientInfo() {
                 <div>
                     <p>My plant's progress</p>
                     <span>{plant_notif ? '✅' : '❌'}</span>
-                    </div>
-                    <div>
+                </div>
+                <div>
                     <p>W... P... S News</p>
                     <span>{news_notif ? '✅' : '❌'}</span>
                 </div>

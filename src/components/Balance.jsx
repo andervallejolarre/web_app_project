@@ -10,7 +10,11 @@ function Balance(props) {
         if (!props.weatherData || Object.keys(props.weatherData).length === 0) return;
         const getInfo = async () => {
             try {
-                const plantType = await axios.post(`${URL}/plant/balance`, props.weatherData);
+                const plantType = await axios.post(`${URL}/plant/balance`, dataToSend, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }, props.weatherData);
                 if (plantType.data && plantType.data.payload) {
                     setBalanceInfo(plantType.data.payload.final);
                     props.set({ ...props.state, progress: plantType.data.payload.update.progress, level: plantType.data.payload.update.level, stress: plantType.data.payload.update.stress, firstVisit: plantType.data.payload.update.firstVisit });
