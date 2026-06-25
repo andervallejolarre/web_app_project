@@ -24,9 +24,9 @@ async function connecting() {
         console.log('EROR: Seems like your DB is not running')
     }
 }
-app.use('/admin', adminsRoute);
-app.use('/client', clientsRoute);
-app.use('/plant', plantsRoute);
+app.use('/api/admin', adminsRoute);
+app.use('/api/client', clientsRoute);
+app.use('/api/plant', plantsRoute);
 
 connecting().then(() => {
     app.listen(port, () => console.log(`listening on port ${port}`))

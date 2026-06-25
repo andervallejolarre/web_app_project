@@ -21,7 +21,7 @@ function App() {
       if (token === null) setIsLoggedIn(false);
       try {
         axios.defaults.headers.common['Authorization'] = token;
-        const res = await axios.post(`${URL}/client/verify_token`)
+        const res = await axios.post(`${URL}client/verify_token`)
         return res.data.ok ? login(token) : logout()
       } catch (e) {
         console.log(e);
