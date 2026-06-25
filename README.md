@@ -2,7 +2,7 @@
 
 > A full-stack web application for tracking digital plants, clients, and plant types.
 
-<img src="./front-end/public/DigitalPlant_screen.png" width="480">
+<img src="./public/DigitalPlant_screen.png" width="480">
 
 ## Overview
 
