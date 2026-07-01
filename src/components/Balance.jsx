@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { URL } from '../config.js';
+import { SERVER_URL } from '../config.js';
 
 function Balance(props) {
     const [balanceInfo, setBalanceInfo] = useState({});
@@ -10,11 +10,11 @@ function Balance(props) {
         if (!props.weatherData || Object.keys(props.weatherData).length === 0) return;
         const getInfo = async () => {
             try {
-                const plantType = await axios.post(`${URL}/plant/balance`, dataToSend, {
+                const plantType = await axios.post(`${SERVER_URL}/plant/balance`, props.weatherData, {
                     headers: {
                         "Content-Type": "application/json",
                     }
-                }, props.weatherData);
+                });
                 if (plantType.data && plantType.data.payload) {
                     setBalanceInfo(plantType.data.payload.final);
                     props.set({ ...props.state, progress: plantType.data.payload.update.progress, level: plantType.data.payload.update.level, stress: plantType.data.payload.update.stress, firstVisit: plantType.data.payload.update.firstVisit });

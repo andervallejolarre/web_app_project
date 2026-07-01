@@ -2,8 +2,19 @@ const client = require('../models/clientModel.js');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
+const mongoose = require('mongoose');
 
 const jwt_secret = process.env.JWT_SECRET;
+
+const ensureDbReady = () => {
+    if (!process.env.MONGO_URL) {
+        throw new Error('MONGO_URL is not configured');
+    }
+
+    if (mongoose.connection.readyState !== 1) {
+        throw new Error('Database connection is not available');
+    }
+};
 
 class ClientsController {
     async findAll(req, res) {
@@ -19,6 +30,12 @@ class ClientsController {
     //Create a new account and log in
     async newClient(req, res) {
         let { name, email, password, password2, plantNotif, newsNotif } = req.body;
+
+        try {
+            ensureDbReady();
+        } catch (e) {
+            return res.status(503).send({ ok: false, payload: 'Database unavailable' });
+        }
 
         if (!name || !email || !password || !password2) {
             return res.send({ ok: false, payload: 'All fields required' });
@@ -56,6 +73,13 @@ class ClientsController {
     //Log In
     async login(req, res) {
         let { email, password } = req.body;
+
+        try {
+            ensureDbReady();
+        } catch (e) {
+            return res.status(503).send({ ok: false, payload: 'Database unavailable' });
+        }
+
         if (!email || !password) {
             return res.send({ ok: false, payload: 'All fields required' });
         }
@@ -96,6 +120,7 @@ class ClientsController {
     //Acces client info 
     async clientInfo(req, res) {
         try {
+            ensureDbReady();
             const token = req.headers.authorization;
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const clientInfo = await client.findOne({ email: decoded.email }).select('-password');

@@ -9,7 +9,7 @@ import Footer from './views/Footer.jsx'
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router'
-import { URL } from './config.js';
+import { SERVER_URL } from './config.js';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -21,14 +21,14 @@ function App() {
       if (token === null) setIsLoggedIn(false);
       try {
         axios.defaults.headers.common['Authorization'] = token;
-        const res = await axios.post(`${URL}client/verify_token`, dataToSend, {
+        const res = await axios.post(`${SERVER_URL}/client/verify_token`, {}, {
           headers: {
-            "Content-Type": "applications/json",
+            "Content-Type": "application/json",
           }
         });
         return res.data.ok ? login(token) : logout()
       } catch (e) {
-        console.log(e);
+        console.log(e + SERVER_URL);
       }
     }
     verify_token();

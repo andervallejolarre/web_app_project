@@ -1,21 +1,19 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { URL } from '../config.js';
+import { SERVER_URL } from '../config.js';
 
 function Action(props) {
 
     const handleChange = async (event) => {
         try {
-            //changing action parameter in state variable of DigitalPlant, to be displayed
-            props.set({ ...props.state, [event.target.name]: !props.state[event.target.name] });
-            //Changing action parameters in plant DB
-            const res = await axios.post(`${URL}/plant/action`, dataToSend, {
+            const nextState = { ...props.state, [event.target.name]: !props.state[event.target.name] };
+            props.set(nextState);
+            const res = await axios.post(`${SERVER_URL}/plant/action`, nextState, {
                 headers: {
                     "Content-Type": "application/json",
                 }
-            },
-                { ...props.state, [event.target.name]: !props.state[event.target.name] })
+            });
             console.log(res.data.payload)
         } catch (e) {
             console.log(e);

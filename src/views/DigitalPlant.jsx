@@ -9,7 +9,7 @@ import SelectedGraph from '../components/SelectedGraph.jsx'
 import Contentbar from '../components/Contentbar.jsx'
 import MetaData from '../components/MetaData.jsx'
 import Timer from '../components/Timer.jsx';
-import { URL } from '../config.js';
+import { SERVER_URL } from '../config.js';
 import axios from 'axios'
 
 function DigitalPlant(props) {
@@ -38,7 +38,7 @@ function DigitalPlant(props) {
     useEffect(() => {
         const getInfo = async () => {
             try {
-                const plant = await axios.get(`${URL}/plant/plant-info`, dataToSend, {
+                const plant = await axios.get(`${SERVER_URL}/plant/plant-info`, {
                     headers: {
                         "Content-Type": "application/json",
                     }

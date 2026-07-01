@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { URL } from '../config.js';
+import { SERVER_URL } from '../config.js';
 
 function PlantType(props) {
 
@@ -10,7 +10,7 @@ function PlantType(props) {
     useEffect(() => {
         const getInfo = async () => {
             try {
-                const plantType = await axios.get(`${URL}/plant/plant-type-info`, dataToSend, {
+                const plantType = await axios.get(`${SERVER_URL}/plant/plant-type-info`, {
                     headers: {
                         "Content-Type": "application/json",
                     }

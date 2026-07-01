@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
-import { URL } from '../config.js';
+import { SERVER_URL } from '../config.js';
 import ClientInfo from '../components/ClientInfo.jsx'
 import MetaData from '../components/MetaData.jsx';
 
@@ -38,12 +38,7 @@ function Account(props) {
         event.preventDefault();
         try {
             //Creating a new account
-            const res = await axios.post(`${URL}/client/new`, dataToSend, {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            },
-                {
+            const res = await axios.post(`${SERVER_URL}/client/new`, {
                     name: newClientInfo.name,
                     email: newClientInfo.email,
                     password: newClientInfo.password,
@@ -53,12 +48,7 @@ function Account(props) {
                 })
             //If creating new account succesful we create a new plant
             if (res.data.ok) {
-                const secondRes = await axios.post(`${URL}/plant/new`, dataToSend, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                },
-                    {
+                const secondRes = await axios.post(`${SERVER_URL}/plant/new`, {
                         email: newClientInfo.email,
                         type: 'Rubyceae Byttea',
                     });
@@ -68,25 +58,31 @@ function Account(props) {
                     }, 1500);
                 }
             }
-            setMessage(`${res.data.payload}`)
+            const serverMessage = typeof res.data?.payload === 'string'
+                ? res.data.payload
+                : res.data?.payload
+                    ? JSON.stringify(res.data.payload)
+                    : 'Something went wrong';
+            setMessage(serverMessage);
         } catch (e) {
             console.log(e);
+            setMessage('Unable to reach the server. Please try again.');
         }
     }
 
     const handleSubmit2 = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.post(`${URL}/client/login`, dataToSend, {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            },
-                {
+            const res = await axios.post(`${SERVER_URL}/client/login`, {
                     email: oldClient.email,
                     password: oldClient.password,
                 })
-            setMessage(res.data.payload)
+            const serverMessage = typeof res.data?.payload === 'string'
+                ? res.data.payload
+                : res.data?.payload
+                    ? JSON.stringify(res.data.payload)
+                    : 'Something went wrong';
+            setMessage(serverMessage);
             if (res.data.ok) {
                 setTimeout(() => {
                     props.login(res.data.token);
@@ -94,6 +90,7 @@ function Account(props) {
             }
         } catch (e) {
             console.log(e);
+            setMessage('Unable to reach the server. Please try again.');
         }
     }
 

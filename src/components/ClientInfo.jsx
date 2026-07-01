@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { URL } from '../config.js';
+import { SERVER_URL } from '../config.js';
 
 function ClientInfo() {
 
@@ -10,7 +10,7 @@ function ClientInfo() {
 
         const getInfo = async () => {
             try {
-                const client = await axios.get(`${URL}/client/client-info`, dataToSend, {
+                const client = await axios.get(`${SERVER_URL}/client/client-info`, {
                     headers: {
                         "Content-Type": "application/json",
                     }

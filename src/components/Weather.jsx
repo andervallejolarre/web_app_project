@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { URL } from '../config.js';
+import { SERVER_URL } from '../config.js';
 import GeoLocation from './GeoLocation.jsx'
 
 function Weather(props) {
@@ -18,7 +18,7 @@ function Weather(props) {
         if (!location) return;
         const getInfo = async () => {
             try {
-                const weather = await axios.get(`${URL}/plant/weather?latitude=${location.latitude}&longitude=${location.longitude}`, dataToSend, {
+                const weather = await axios.get(`${SERVER_URL}/plant/weather?latitude=${location.latitude}&longitude=${location.longitude}`, {
                     headers: {
                         "Content-Type": "application/json",
                     }
