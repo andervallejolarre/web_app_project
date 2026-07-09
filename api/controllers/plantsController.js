@@ -4,8 +4,18 @@ const plantType = require('../models/plantTypeModel.js');
 const jwt = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId
 const axios = require('axios');
+const mongoose = require('mongoose');
 
 const jwt_secret = process.env.JWT_SECRET;
+
+const ensureDbReady = () => {
+    if (!process.env.MONGO_URL) {
+        throw new Error('MONGO_URL is not configured');
+    }
+    if (mongoose.connection.readyState !== 1) {
+        throw new Error('Database connection is not available');
+    }
+};
 
 class PlantsController {
     async findAll(req, res) {
@@ -20,7 +30,9 @@ class PlantsController {
     //Create a new plant
     async newPlant(req, res) {
         let { email, type } = req.body;
+
         try {
+            ensureDbReady();
             const clientId = await client.findOne({ email });
             if (clientId) {
                 await plant.create({
@@ -35,23 +47,30 @@ class PlantsController {
                     level: 0,
                     firstVisit: true,
                 })
-                res.send({ ok: true, payload: `Plant created` })
+                return res.send({ ok: true, payload: `Plant created` })
             } else {
-                res.send({ ok: true, payload: 'First create an account' })
+                return res.send({ ok: false, payload: 'First create an account' })
             }
         } catch (e) {
             console.log(e);
-            res.send({ ok: false, payload: 'You already have a plant! Go and take care of it' })
+            if (e.code === 11000 || e.name === 'MongoServerError') {
+                return res.status(409).send({ ok: false, payload: 'You already have a plant! Go and take care of it' });
+            }
+            if (e.message && e.message.includes('MONGO_URL')) {
+                return res.status(503).send({ ok: false, payload: 'Database unavailable' });
+            }
+            return res.status(500).send({ ok: false, payload: 'Unable to create plant' });
         }
     }
     //Acces plant info through client _id stored in token
     async plantInfo(req, res) {
         try {
+            ensureDbReady();
             const token = req.headers.authorization;
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const plantData = await plant.findOne({ owner: decoded.id }).select('-_id -__v -owner -type');
 
-            if (!plant) {
+            if (!plantData) {
                 return res.status(404).send({ ok: false, payload: 'Plant not found' });
             }
             res.send({ ok: true, payload: plantData });
@@ -66,9 +85,15 @@ class PlantsController {
     //Acces plant type info and print it
     async plantTypeInfo(req, res) {
         try {
+            ensureDbReady();
             const token = req.headers.authorization;
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const plantData = await plant.findOne({ owner: decoded.id }).select('type');
+
+            if (!plantData) {
+                return res.status(404).send({ ok: false, payload: 'Plant not found' });
+            }
+
             const plantTypeData = await plantType.findOne({ type: plantData.type }).select('-_id -__v');
 
             if (!plantTypeData) {
@@ -112,11 +137,12 @@ class PlantsController {
     //Acces plant type info, weather info and plant info and calculate the period balance of the plant
     async globalBalance(req, res) {
         try {
+            ensureDbReady();
             const token = req.headers.authorization;
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const weather = req.body
             const plantData = await plant.findOne({ owner: decoded.id }).select('-_id -__v -owner');
-            const plantTypeData = await plantType.findOne({ type: plantData.type }).select('-_id -__v');
+            const plantTypeData = await plantType.findOne({ type: plantData?.type }).select('-_id -__v');
 
                 if (plantTypeData && weather && plantData) {
 
@@ -349,6 +375,7 @@ class PlantsController {
     async takeAction(req, res) {
         if (req.body) {
             try {
+                ensureDbReady();
                 const token = req.headers.authorization;
                 const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
