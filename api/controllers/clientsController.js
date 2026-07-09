@@ -48,25 +48,28 @@ class ClientsController {
         }
 
         try {
-            const clients = await client.findOne({ email });
-            if (!clients) {
-                const hash = await argon2.hash(password);
-                const newClient = await client.create({
-                    name: name,
-                    email: email,
-                    password: hash,
-                    last_log: Date.now(),
-                    plant_notif: plantNotif,
-                    news_notif: newsNotif
-                })
-                const token = jwt.sign({ id: newClient._id, email: newClient.email }, jwt_secret, { expiresIn: "1h" });
-                res.send({ ok: true, payload: `Client ${name} added successfully`, token, email, id: newClient._id })
-            } else {
-                res.send({ ok: false, payload: 'Invalid credentials' })
+            const existingClient = await client.findOne({ email });
+            if (existingClient) {
+                return res.status(409).send({ ok: false, payload: 'Email already registered' });
             }
+
+            const hash = await argon2.hash(password);
+            const newClient = await client.create({
+                name: name,
+                email: email,
+                password: hash,
+                last_log: Date.now(),
+                plant_notif: plantNotif,
+                news_notif: newsNotif
+            })
+            const token = jwt.sign({ id: newClient._id, email: newClient.email }, jwt_secret, { expiresIn: "1h" });
+            return res.send({ ok: true, payload: `Client ${name} added successfully`, token, email, id: newClient._id })
         } catch (e) {
             console.log(e);
-            res.send({ ok: false, payload: e })
+            if (e.code === 11000 || e.name === 'MongoServerError') {
+                return res.status(409).send({ ok: false, payload: 'Email already registered' });
+            }
+            return res.status(500).send({ ok: false, payload: 'Unable to register client' });
         }
     }
 
@@ -88,19 +91,18 @@ class ClientsController {
         }
         try {
             const clients = await client.findOne({ email });
-            if (clients) {
-                const match = await argon2.verify(clients.password, password);
-                if (match) {
-                    const token = jwt.sign({ id: clients._id, email: clients.email }, jwt_secret, { expiresIn: "1h" });
-                    //UPDATE LAST LOG - I STLII HAVE TO FIGURE OUT WHERE DOES THIS REQUEST FITS
-                    await client.findOneAndUpdate({ email: clients.email }, { last_log: Date.now() })
-                    res.send({ ok: true, payload: `Welcome back`, token, email, id: clients._id })
-                } else {
-                    res.send({ ok: false, payload: 'Invalid credentials' })
-                }
-            } else {
-                res.send({ ok: false, payload: 'Invalid credentials' })
+            if (!clients) {
+                return res.status(401).send({ ok: false, payload: 'Invalid credentials' });
             }
+
+            const match = await argon2.verify(clients.password, password);
+            if (!match) {
+                return res.status(401).send({ ok: false, payload: 'Invalid credentials' });
+            }
+
+            const token = jwt.sign({ id: clients._id, email: clients.email }, jwt_secret, { expiresIn: "1h" });
+            await client.findOneAndUpdate({ email: clients.email }, { last_log: Date.now() });
+            return res.send({ ok: true, payload: `Welcome back`, token, email, id: clients._id });
         } catch (e) {
             console.log(e);
             res.send({ ok: false, payload: e })
@@ -110,11 +112,16 @@ class ClientsController {
     //Verify_token
     async verifyToken(req, res) {
         const token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({ ok: false, payload: 'Token missing' });
+        }
+
         jwt.verify(token, jwt_secret, (err, succ) => {
-            err ?
-                res.json({ ok: false, payload: 'Something went wrong' })
-                : res.json({ ok: true, succ });
-        })
+            if (err) {
+                return res.status(401).json({ ok: false, payload: 'Invalid or expired token' });
+            }
+            return res.json({ ok: true, succ });
+        });
     };
 
     //Acces client info 
@@ -122,7 +129,10 @@ class ClientsController {
         try {
             ensureDbReady();
             const token = req.headers.authorization;
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            if (!token) {
+                return res.status(401).send({ ok: false, payload: 'Token missing' });
+            }
+            const decoded = jwt.verify(token, jwt_secret);
             const clientInfo = await client.findOne({ email: decoded.email }).select('-password');
 
             if (!clientInfo) {
@@ -134,7 +144,7 @@ class ClientsController {
             if (e.name === 'JsonWebTokenError' || e.name === 'TokenExpiredError') {
                 return res.status(401).send({ ok: false, payload: 'Invalid or expired token' });
             }
-            res.send({ ok: false, payload: 'Something went wrong' });
+            return res.status(500).send({ ok: false, payload: 'Something went wrong' });
         }
     }
 }

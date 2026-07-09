@@ -27,7 +27,12 @@ function Balance(props) {
             }
         }
         getInfo();
-    }, [props.weatherData])
+    }, [props.weatherData,
+        //props.state.hidration,
+        //props.state.nutrients,
+        //props.state.protection,
+        props.state.updated,
+    ]);
 
     return (
         <>

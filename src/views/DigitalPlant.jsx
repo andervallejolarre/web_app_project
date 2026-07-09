@@ -35,26 +35,26 @@ function DigitalPlant(props) {
         setScreenInfo(val);
     }
 
-    useEffect(() => {
-        const getInfo = async () => {
-            try {
-                const plant = await axios.get(`${SERVER_URL}/plant/plant-info`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                }) || {};
-                setPlantInfo(plant.data.payload);
-            } catch (e) {
-                console.log(e);
-            }
+    const getInfo = async () => {
+        try {
+            const plant = await axios.get(`${SERVER_URL}/plant/plant-info`, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }) || {};
+            setPlantInfo(plant.data.payload);
+        } catch (e) {
+            console.log(e);
         }
+    }
+
+    useEffect(() => {
         if (props.loggedIn) {
             getInfo();
         }
     }, [props.loggedIn])
 
     const handleTimerReady = () => {
-        // Timer reached 0 - add logic here later
         getInfo();
         console.log('Timer ready - balance update available');
     }
@@ -67,7 +67,7 @@ function DigitalPlant(props) {
                     description="Manage your digital plant and track its growth"
                 />
                 <section className="digitalPlant">
-                    <Timer updated={plantInfo.updated} timer={handleTimerReady} />
+                    <Timer updated={plantInfo.updated} onTimerReady={handleTimerReady} />
                     <section className="screen">
                         <div className="dataBox">
                             <Contentbar showScreen={showScreen} screenInfo={screenInfo} />

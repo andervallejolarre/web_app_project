@@ -110,9 +110,9 @@ function Account(props) {
                             <label>Email</label>
                             <input className="textInput" type='email' name='email' />
                             <label>password</label>
-                            <input className="textInput" type='text' name='password' />
+                            <input className="textInput" type='password' name='password' />
                             <label>confirm password</label>
-                            <input className="textInput" type='text' name='password2' />
+                            <input className="textInput" type='password' name='password2' />
                             <div className="checkInput">
                                 <label>Notifications about your plant</label>
                                 <input type="checkbox" name='plantNotif' />
@@ -128,7 +128,7 @@ function Account(props) {
                             <label>Email</label>
                             <input className="textInput" type='email' name='email' />
                             <label>password</label>
-                            <input className="textInput" type='text' name='password' />
+                            <input className="textInput" type='password' name='password' />
                             <button>Enter</button>
                         </form>
                     </div>
