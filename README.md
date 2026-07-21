@@ -79,9 +79,8 @@ This creates an immersive experience where environmental factors and user care d
 
 Create a `.env` file in `back-end` (and `front-end` if needed) with values such as:
 
-- `MONGODB_URI` — database connection string
+- `MONGODB_URL` — database connection string
 - `PORT` — back-end server port
-- `FRONTEND_PORT` — front-end dev server port (optional)
 - `JWT_SECRET` — authentication secret 
 
 Adjust names to match what's read in your code.
