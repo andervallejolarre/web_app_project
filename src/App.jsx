@@ -18,7 +18,10 @@ function App() {
 
   useEffect(() => {
     const verify_token = async () => {
-      if (token === null) setIsLoggedIn(false);
+      if (token === null){
+        setIsLoggedIn(false);
+        return;
+      } 
       try {
         axios.defaults.headers.common['Authorization'] = token;
         const res = await axios.post(`${SERVER_URL}/client/verify_token`, {}, {
@@ -28,7 +31,7 @@ function App() {
         });
         return res.data.ok ? login(token) : logout()
       } catch (e) {
-        console.log(e + SERVER_URL);
+        logout();
       }
     }
     verify_token();
