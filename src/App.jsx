@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router'
 import { SERVER_URL } from './config.js';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -59,6 +60,7 @@ function App() {
         <Route path='/account' element={<Account login={login} loggedIn={isLoggedIn} logout={logout} />} />
       </Routes>
       <Footer loggedIn={isLoggedIn} logout={logout} />
+      <Analytics />
     </Router>
   )
 }
