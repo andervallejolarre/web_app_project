@@ -1,5 +1,5 @@
 const client = require('../models/clientModel.js');
-const argon2 = require('argon2');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
 const mongoose = require('mongoose');
@@ -53,7 +53,7 @@ class ClientsController {
                 return res.status(409).send({ ok: false, payload: 'Email already registered' });
             }
 
-            const hash = await argon2.hash(password);
+            const hash = await bcrypt.hash(password, 10);
             const newClient = await client.create({
                 name: name,
                 email: email,
@@ -95,7 +95,7 @@ class ClientsController {
                 return res.status(401).send({ ok: false, payload: 'Invalid credentials' });
             }
 
-            const match = await argon2.verify(clients.password, password);
+            const match = await bcrypt.compare(password, clients.password);
             if (!match) {
                 return res.status(401).send({ ok: false, payload: 'Invalid credentials' });
             }

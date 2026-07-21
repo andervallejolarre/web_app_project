@@ -13,8 +13,8 @@
     "vercel-build": "echo 'No build step required'"
   },
   "dependencies": {
-    "argon2": "^0.44.0",
     "axios": "^1.16.1",
+    "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.2",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
