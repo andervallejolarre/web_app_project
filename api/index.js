@@ -7,6 +7,7 @@ const express = require('express'),
     cors = require('cors'),
     port = process.env.PORT || 4040;
 
+const awaitConnect = require('./middleware/awaitConnect.js');
 const adminsRoute = require('./routes/adminsRoute.js')
 const clientsRoute = require('./routes/clientsRoute.js')
 const plantsRoute = require('./routes/plantsRoute.js')
@@ -23,6 +24,7 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+/*
 async function connecting() {
     if (!process.env.MONGO_URL) {
         console.log('EROR: MONGO_URL is missing');
@@ -38,6 +40,8 @@ async function connecting() {
 }
 
 connecting();
+*/
+app.use(awaitConnect);
 
 app.use('/api/admin', adminsRoute);
 app.use('/api/client', clientsRoute);
