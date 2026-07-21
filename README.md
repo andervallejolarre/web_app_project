@@ -92,7 +92,4 @@ Adjust names to match what's read in your code.
 - **[DigitalPlant.jsx](front-end/src/views/DigitalPlant.jsx)** — Core plant view that integrates user actions, weather data, and plant state
 - **[Balance.jsx](front-end/src/components/Balance.jsx)** & **[Action.jsx](front-end/src/components/Action.jsx)** — Manage user interactions and plant care actions
 
-## Authors
-- Project maintained by the authors listed in the repository.
-
 ---
