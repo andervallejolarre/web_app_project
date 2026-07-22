@@ -9,7 +9,7 @@ body {
         font-stretch: extra-expanded;
     }
 
-    input[type="checkbox"] {
+    input[type="checkbox"]:not(.switch input) {
         width: 15px;
         accent-color: rgb(84, 61, 107);
         cursor: pointer;
@@ -227,7 +227,7 @@ body {
         display: grid;
         grid-template-columns: 30% 40% 30%;
         margin: 5%;
-        margin-top:2%;
+        margin-top: 2%;
         border: solid 1px;
         border-radius: 10px;
 
@@ -408,18 +408,28 @@ body {
 
             .switch {
                 position: relative;
+                display: inline-block;
+                width: 64px;
+                height: 32px;
             }
 
             .switch input[type="checkbox"] {
                 appearance: none;
                 -webkit-appearance: none;
+                position: absolute;
+                width: 0;
+                height: 0;
+                top: 0;
+                left: 0;
+                margin: 0;
+                padding: 0;
             }
 
             .switch input[type="checkbox"]:before {
                 content: '';
                 position: absolute;
-                top: -3px;
-                left: -30px;
+                top: 0;
+                left: 0;
                 height: 32px;
                 width: 64px;
                 background: #6F579A;
@@ -432,17 +442,20 @@ body {
             .switch input[type="checkbox"]:after {
                 content: '';
                 position: absolute;
+                top: 4px;
+                left: 4px;
                 height: 24px;
                 width: 24px;
                 background: #6F579A;
                 border: solid 1px #bbbde2;
                 border-radius: 8px;
-                transform: translate(-30px, -15px);
+                /*transform: translate(-30px, -15px);*/
                 transition: linear 0.2s;
             }
 
             .switch input[type="checkbox"]:checked::after {
-                transform: translate(0px, -15px);
+                left: 36px;
+                /*transform: translate(0px, -15px);*/
                 background: #bbbde2;
             }
 
@@ -575,16 +588,6 @@ body {
         .actionPart {
             margin-top: 8%;
             margin-bottom: 8%;
-
-            .action {
-                .switch input[type="checkbox"]:after {
-                    transform: translate(-30px, -13px);
-                }
-
-                .switch input[type="checkbox"]:checked::after {
-                    transform: translate(0px, -13px);
-                }
-            }
         }
 
         .screen {
@@ -826,14 +829,6 @@ body {
 
                 .switch {
                     margin: 30% 5%;
-                }
-
-                .switch input[type="checkbox"]:after {
-                    transform: translate(-30px, -13px);
-                }
-
-                .switch input[type="checkbox"]:checked::after {
-                    transform: translate(0px, -13px);
                 }
             }
         }
@@ -1176,6 +1171,8 @@ body {
 
                 .switch {
                     position: relative;
+                    width: 48px;
+                    height: 25px;
                 }
 
                 .switch input[type="checkbox"] {
@@ -1184,34 +1181,21 @@ body {
                 }
 
                 .switch input[type="checkbox"]:before {
-                    content: '';
-                    position: absolute;
-                    top: -40px;
-                    left: -65px;
                     height: 25px;
                     width: 48px;
-                    background: #6F579A;
-                    border: solid 1px #bbbde2;
                     border-radius: 6px;
-                    cursor: pointer;
-                    box-shadow: 1px 1px 2px 1px rgb(84, 61, 107);
                 }
 
                 .switch input[type="checkbox"]:after {
-                    content: '';
-                    position: absolute;
-                    height: 20px;
-                    width: 20px;
-                    background: #6F579A;
-                    border: solid 1px #bbbde2;
+                    top: 3px;
+                    left: 3px;
+                    height: 19px;
+                    width: 19px;
                     border-radius: 4px;
-                    transform: translate(-66px, -51px);
-                    transition: linear 0.2s;
                 }
 
                 .switch input[type="checkbox"]:checked::after {
-                    transform: translate(-45px, -51px);
-                    background: #bbbde2;
+                    left:26px;
                 }
 
                 .switch input[type="checkbox"]:checked::before {
