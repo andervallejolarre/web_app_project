@@ -1205,12 +1205,12 @@ body {
                     background: #6F579A;
                     border: solid 1px #bbbde2;
                     border-radius: 4px;
-                    transform: translate(-198%, -189%);
+                    transform: translate(-66px, -51px);
                     transition: linear 0.2s;
                 }
 
                 .switch input[type="checkbox"]:checked::after {
-                    transform: translate(-295%, -189%);
+                    transform: translate(-45px, -51px);
                     background: #bbbde2;
                 }
 
