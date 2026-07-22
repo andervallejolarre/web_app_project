@@ -42,12 +42,12 @@ function Balance(props) {
                     <div className="screenInfo">
                         <h2>Period Balance</h2>
                         <p>Welcome to DigitalPlant!.</p>
-                        <p>You will see some changes when the first 24h period finishes. </p>
+                        <p>You will see some changes when the first 12h period finishes. </p>
                         <p>After that, weather conditions will have some direct inpact on your plant
                             and you will be able to help it progress!</p>
                         <p>In the mean time, go ahead and inspect the interface so you get familiar with it.</p>
 
-                        <p><strong>Remember</strong> that your plant will show some progress each 24h.</p>
+                        <p><strong>Remember</strong> that your plant will show some progress each 12h.</p>
 
                         <p>With that said, Enjoy and have a nice day.</p>
                     </div>

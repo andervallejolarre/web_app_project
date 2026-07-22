@@ -17,7 +17,7 @@ function Timer({ updated, onTimerReady }) {
         if (!updated) return;
 
         const updateTimer = () => {
-            const nextUpdateTime = Number(updated) + 24 * 60 * 60 * 1000;
+            const nextUpdateTime = Number(updated) + 12 * 60 * 60 * 1000;
             const millisLeft = nextUpdateTime - Date.now();
             setTimeLeft(millisLeft);
             

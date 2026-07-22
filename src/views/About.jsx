@@ -63,8 +63,8 @@ function About() {
 
                 <p><strong>P.D.:.</strong> As in real life, changes in plants are not visible
                     right away. Here in DigitalPlant, progress is measured
-                    in periods of 24h so you will have to be aware of your
-                    plant in a daily basis. Go ahead and enjoy taking care
+                    in periods of 12h so you will have to be aware of your
+                    plant in a regular basis. Go ahead and enjoy taking care
                     of your DigitalPlant.</p>
             </section>
         </>

@@ -326,7 +326,7 @@ class PlantsController {
                     finalMessage.message3 = message3;
 
                     //Finally, if the minimum time to update plant data has passed, we update progress,level and stress on DB and Screens before sending back the finalMessage
-                    const minUpdateTime = Number(plantData.updated) + (24 * 60 * 60 * 1000);
+                    const minUpdateTime = Number(plantData.updated) + (12 * 60 * 60 * 1000);
                     //Object that will hel us to display progress, level and stress values
                     const updatedValues = {
                         progress: plantData.progress,
