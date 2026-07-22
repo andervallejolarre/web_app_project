@@ -24,17 +24,23 @@ function Action(props) {
         <>
             <h2>ACTION</h2>
             <div className="action">
-                <label >Watering</label>
-                <div className="switch">
-                    <input type="checkbox" name="hidration" id="hidration" checked={props.state.hidration} onChange={handleChange} />
+                <div className="oneAction">
+                    <label >Watering</label>
+                    <div className="switch">
+                        <input type="checkbox" name="hidration" id="hidration" checked={props.state.hidration} onChange={handleChange} />
+                    </div>
                 </div>
-                <label >Nutrients</label>
-                <div className="switch">
-                    <input type="checkbox" name="nutrients" id="nutrients" checked={props.state.nutrients} onChange={handleChange} />
+                <div className="oneAction">
+                    <label >Nutrients</label>
+                    <div className="switch">
+                        <input type="checkbox" name="nutrients" id="nutrients" checked={props.state.nutrients} onChange={handleChange} />
+                    </div>
                 </div>
-                <label >Protection</label>
-                <div className="switch">
-                    <input type="checkbox" name="protection" id="protection" checked={props.state.protection} onChange={handleChange} />
+                <div className="oneAction">
+                    <label >Protection</label>
+                    <div className="switch">
+                        <input type="checkbox" name="protection" id="protection" checked={props.state.protection} onChange={handleChange} />
+                    </div>
                 </div>
             </div>
         </>
