@@ -6,8 +6,9 @@ const GeoLocation = () => {
         useGeolocated({
             positionOptions: {
                 enableHighAccuracy: false,
+                timeout:15000,
             },
-            userDecisionTimeout: 5000,
+            //userDecisionTimeout: 5000,
         });
 
     if (isGeolocationAvailable && isGeolocationEnabled && coords) {
