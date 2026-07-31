@@ -41,32 +41,32 @@ function Balance(props) {
                 props.state.firstVisit ? (
                     <div className="screenInfo">
                         <h2>Period Balance</h2>
-                        <p>Welcome to DigitalPlant!.</p>
+                        <p>Welcome to DigitalPlant!</p>
                         <p>You will see some changes when the first 12h period finishes. </p>
-                        <p>After that, weather conditions will have some direct inpact on your plant
-                            and you will be able to help it progress!</p>
-                        <p>In the mean time, go ahead and inspect the interface so you get familiar with it.</p>
+                        <p>After that, weather conditions will directly impact your plant
+                            and you will be able to help it through!</p>
+                        <p>In the mean time, check out all the features you have available.</p>
 
-                        <p><strong>Remember</strong> that your plant will show some progress each 12h.</p>
+                        <p><strong>Remember,</strong>  you will see changes every 12 hours.</p>
 
-                        <p>With that said, Enjoy and have a nice day.</p>
+                        <p>With that said, enjoy and have a nice day.</p>
                     </div>
                 ) : (
                     // If it's not the first time we'll render balance messages fetched from our back-end
                     <div className="screenInfo">
                         <h2>Period Balance</h2>
-                        <p>Since last time you were here {balanceInfo.message1}</p>
-                        <p>Take a look on how weather has a direct impact on it:</p>
+                        <p>{balanceInfo.message1}</p>
+                        <p>Take a look on how weather directly impacts it:</p>
                         <ul>
                             <li>{balanceInfo.message2?.sentence1 || ""}</li>
                             <li>{balanceInfo.message2?.sentence2 || ""}</li>
                             <li>{balanceInfo.message2?.sentence3 || ""}</li>
                         </ul>
-                        <p>Also, your actions have a direct impact too! : </p>
+                        <p>Your actions have a direct impact too! : </p>
                         <ul>
                             {balanceInfo.message3?.sentence1 && <li>{balanceInfo.message3.sentence1}</li>}
                             {balanceInfo.message3?.sentence2 && <li>{balanceInfo.message3.sentence2}</li>}
-                            {(!balanceInfo.message3?.sentence1 && !balanceInfo.message3?.sentence2) && <li>Keep things like this till you see some changes</li>}
+                            {(!balanceInfo.message3?.sentence1 && !balanceInfo.message3?.sentence2) && <li>Keep things the same until you see some changes.</li>}
                         </ul>
                     </div>
                 )

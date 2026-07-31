@@ -292,9 +292,9 @@ class PlantsController {
                     if (progress >= 15) {
                         finalMessage.message1 += `Your plant is doing great!`
                     } else if (progress > 0 && progress < 15) {
-                        finalMessage.message1 += 'Your plant just made it through this days!'
+                        finalMessage.message1 += 'Your plant barely made it through!'
                     } else if (progress <= 0) {
-                        finalMessage.message1 += `Your plant is having some trouble progressing!`
+                        finalMessage.message1 += `Your plant is struggling!`
                     }
 
                     //Second message about weather analysis based on plant type necessities

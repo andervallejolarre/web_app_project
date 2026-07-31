@@ -31,7 +31,7 @@ function PlantType(props) {
                 <div className="screenInfo">
                     <h2>Plant Type Info</h2>
                     <p>Your plant is a : <strong>{plantTypeInfo.type}</strong></p>
-                    <p>Weather conditions ranges that your plant likes :</p>
+                    <p>Weather condition ranges that your plant likes:</p>
                     <ul>
                         <li><strong>Temperatures (ºC) :</strong> {plantTypeInfo.min_temp} - {plantTypeInfo.max_temp}</li>
                         <li><strong>Humidity (%) :</strong> {plantTypeInfo.min_humidity} - {plantTypeInfo.max_humidity}</li>
@@ -39,11 +39,11 @@ function PlantType(props) {
                     </ul>
                     <p>Remember : </p>
                     <ul>
-                        <li>Fluctuations in this ranges will increase plants stress</li>
-                        <li>Stress is not always bad, but be careful</li>
-                        <li>Precipitation will increase humidity</li>
+                        <li>Fluctuation in these ranges will increase the plant's stress.</li>
+                        <li>Stress is not always bad, but look out for high levels.</li>
+                        <li>Precipitation will increase humidity.</li>
                     </ul>
-                    <p>Whith this in mind, go and take care of your plant</p>
+                    <p>With this in mind, you are now ready to take care of your plant</p>
                 </div>
             }
         </>

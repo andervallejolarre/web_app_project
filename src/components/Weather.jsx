@@ -38,14 +38,14 @@ function Weather(props) {
             {props.screen == 2 &&
                 <div className="screenInfo">
                     <h2>Weather Info</h2>
-                    <p>This is an average of the weather conditions for the next 7 days</p>
+                    <p>This is an average of the upcoming conditions for the next 7 days:</p>
                     <ul>
                         <li><strong>Avg. Temp (ºC) :</strong> {weatherInfo.Avg_Min_Temperature} - {weatherInfo.Avg_Max_Temperature}</li>
                         <li><strong>Humidity (%) :</strong> {weatherInfo.Avg_Humidity}</li>
                         <li><strong>UV Index :</strong> {weatherInfo.Avg_UV_Index}</li>
                         <li><strong>Precipitation (mm) :</strong> {weatherInfo.Avg_Precipitation}</li>
                     </ul>
-                    <p>Whit this data, you can plan ahead what your plant will need</p>
+                    <p>With this information you can now take care of your plant.</p>
                 </div>
             }
         </>

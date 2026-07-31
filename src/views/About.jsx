@@ -26,9 +26,8 @@ function About() {
 
                 <p>You will be able to choose between different types
                     of plants, where each one has it's own preferences
-                    of weather conditions such as real life plants and,
-                    as in real life situations, the goal is to help our
-                    plants adapt to our environmental changes. </p>
+                    of weather conditions. As in real life situations, 
+                    the goal is to help our plants adapt to our environmental changes. </p>
 
                 <p>Plants available (Pilot phase):</p>
 
@@ -44,28 +43,26 @@ function About() {
 
                 <img src={dataScreenImg} alt="data screen screenshot" />
 
-                <p>Here you will find <strong>Weather</strong> data and <strong>Plant Type</strong> information
-                    together with a <strong>Period Balance</strong> section that tells you how your plant is doing.
-                    This information is very important so you can see what your plant needs and help it by taking 
-                    some action with the <strong>Action</strong> controls.</p>
+                <p>Here you will find <strong>Weather</strong> data, <strong>Plant Type</strong> information, 
+                    and a <strong>Period Balance</strong> section that tells you how your plant is doing.
+                    This information is very important so you that you can be aware of your plant's needs 
+                    and take action with the <strong>Action</strong> controls.</p>
 
                 <img src={actionSectionImg} alt="action section screen shot" />
 
-                <p>You will see how your plant progress or struggles through the progress and stress indicators. 
-                    You also have a progress meter that whenevere reaches a value of 100 your plant will grow and go 
-                    up a level. It aslso works the other way around, if your plant is struggling and progress reaches 
-                    value 0, your plant will recede and go a level down.</p>
+                <p>You will see if your plant progresses or struggles with the progress and stress indicators. 
+                    When the progress meter reaches 100 your plant will grow, go up a level, and the indicator
+                    will reset to 0. However, if your plant struggles, the meter will decrease and if it reaches 
+                    0 your plant will recede and go back one level. </p>
 
                 <img src={metersImg} alt="meters screen shot" />
 
-                <p>Go ahead and try it out! If you have any question, if you are having some difficulties or you want 
-                    to know more about W… P… S check out the Contact screen.</p>
+                <p>Go ahead and try it out! If you have any questions, find difficulties or you want 
+                    to know more about W… P… S check out the <strong>Contact</strong> screen.</p>
 
                 <p><strong>P.D.:.</strong> As in real life, changes in plants are not visible
-                    right away. Here in DigitalPlant, progress is measured
-                    in periods of 12h so you will have to be aware of your
-                    plant in a regular basis. Go ahead and enjoy taking care
-                    of your DigitalPlant.</p>
+                    right away. Here in DigitalPlant, progress is measured in 12h periods. 
+                    That means it's important to check on your plant regularly.</p>
             </section>
         </>
     )
