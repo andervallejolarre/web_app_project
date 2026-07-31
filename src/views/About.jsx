@@ -45,7 +45,7 @@ function About() {
 
                 <p>Here you will find <strong>Weather</strong> data, <strong>Plant Type</strong> information, 
                     and a <strong>Period Balance</strong> section that tells you how your plant is doing.
-                    This information is very important so you that you can be aware of your plant's needs 
+                    This information is very important so that you can be aware of your plant's needs 
                     and take action with the <strong>Action</strong> controls.</p>
 
                 <img src={actionSectionImg} alt="action section screen shot" />

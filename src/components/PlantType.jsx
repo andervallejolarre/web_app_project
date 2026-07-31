@@ -39,7 +39,7 @@ function PlantType(props) {
                     </ul>
                     <p>Remember : </p>
                     <ul>
-                        <li>Fluctuation in these ranges will increase the plant's stress.</li>
+                        <li>Fluctuation in these ranges will affect the plant's stress.</li>
                         <li>Stress is not always bad, but look out for high levels.</li>
                         <li>Precipitation will increase humidity.</li>
                     </ul>

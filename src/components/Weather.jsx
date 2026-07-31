@@ -45,7 +45,6 @@ function Weather(props) {
                         <li><strong>UV Index :</strong> {weatherInfo.Avg_UV_Index}</li>
                         <li><strong>Precipitation (mm) :</strong> {weatherInfo.Avg_Precipitation}</li>
                     </ul>
-                    <p>With this information you can now take care of your plant.</p>
                 </div>
             }
         </>
